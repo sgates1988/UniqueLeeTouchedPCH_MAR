@@ -1,0 +1,197 @@
+<html>
+    <head>
+        <title>UniqueLee Touched PCH</title>
+        <script src="js/logout.js" type="text/javascript"></script>
+        <link href="css/adminPage.css" rel="stylesheet" type="text/css"/>
+        <script src="js/admin.js" type="text/javascript"></script>
+    </head>
+    <body id="report">
+        <input class="button"  style="float:right" value="Logout" type="submit" onclick="logout()"</input>
+
+        <div class='header'>
+
+            <h1>
+                UniqueLee Touched Personal Care Home
+            </h1>
+            <h2>
+                Administration Tool
+            </h2> 
+        </div>
+        <div>
+            <div class="section" >
+                <div>
+
+                    <h3>
+                        Add a Resident
+                    </h3>
+                    <!-- Trigger/Open The Modal -->
+                    <button id="newResBtn" class="button" onclick="newResModalOpen()">New</button>
+                </div>
+                <!-- The Modal -->
+                <div id="newResModal" class="modal" >
+
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                        <span onclick="newResModalClose()" class="close">&times;</span>
+                        <h2>Add New Resident</h2>
+                        <form name="addRes" method="post" action="addResident.php" >
+                            <label>Resident Name:</label>
+                            <input type="text" name="res_name"/>
+                            </br>
+                            <label>Allergies:</label>
+                            <input type="text" name="res_allergies" style="width:300px; height:150px; margin-right: 20px;" />
+                            <label>Diet:</label>
+                            <input type="text" name="res_diet" style="width:300px; height:150px;"/>
+                            </br>
+                            <input class="button" type="submit" value="Save"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="section">
+                <h3>
+                    New Medication Record
+                </h3>
+                <!-- Trigger/Open The Modal -->
+                <button id="medModalBtn" class="button" onclick="medModalOpen()">New</button>
+
+                <!-- The Modal -->
+                <div id="medModal" class="modal">
+
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                        <span onclick="medModalClose()" class="close">&times;</span>
+                        <h2>Add New Medication Record</h2>
+                        <form method="POST" action="addMedRecord.php">
+                            <label>
+                                Select a resident
+                            </label>
+                            <select name="resident" onchange="displayRes(this.value)">
+                                <?php
+                                include('config.php');
+
+                                $sql = "SELECT * FROM residents";
+                                $result = mysqli_query($con, $sql);
+
+                                while ($row = $result->fetch_assoc()) {
+                                    $con->close();
+                                    ?>
+
+                                    <option name="residents" value="<?php echo $row['res_name'] ?>"><?php echo $row['res_name']; ?></option>
+
+                                <?php }
+                                ?>
+                            </select>
+                            </br>
+                            <label>Medication Name:</label>
+                            <input name="med" type="text">
+                            </br>
+                            <label>Route Name:</label>
+                            <select name="route" >
+                                <?php
+                                include('config.php');
+
+                                $sql = "SELECT * FROM med_route";
+                                $result = mysqli_query($con, $sql);
+
+                                while ($row = $result->fetch_assoc()) {
+                                    $con->close();
+                                    ?>
+
+                                    <option  value="<?php echo $row['med_route_name'] ?>"><?php echo $row['med_route_name']; ?></option>
+
+                                <?php }
+                                ?>
+                            </select>
+                            </br>
+                            <label>Frequency Name:</label>
+                            <select name="frequency"  onchange="prnDisable(this.value)">
+                                <?php
+                                include('config.php');
+
+                                $sql = "SELECT * FROM med_freq";
+                                $result = mysqli_query($con, $sql);
+
+                                while ($row = $result->fetch_assoc()) {
+                                    $con->close();
+                                    ?>
+
+                                    <option value="<?php echo $row['med_freq_name'] ?>"><?php echo $row['med_freq_name']; ?></option>
+
+                                <?php }
+                                ?>
+                            </select>
+                            </br>
+                            <label>Diagnosis Name:</label>
+                            <input name="diagnosis" type="text"/>
+                            </br>
+                            <label>Select Scheduled Times:</label>
+                            
+                            <p id="time" >
+                                <select multiple name="time_slot[]">
+                                <?php
+                                include('config.php');
+
+                                $sql = "SELECT * FROM time_slot";
+                                $result = mysqli_query($con, $sql);
+
+                                while ($row = $result->fetch_assoc()) {
+                                    ?>
+
+                                    <option name="time_slot[]" id="time_slot" value="<?php echo $row['time_slot_name']?> "><?php echo $row['time_slot_name']; ?></option>
+                                   
+
+                                <?php }
+                                ?>
+                                </select>
+                                <select name="am_pm">
+                                     <option name="am_pm" id="am_pm[]" value="AM">AM</option>
+                                      <option name="am_pm" id="am_pm[]" value="PM">PM</option>
+                                </select>
+                            </p>
+                            <span id="PRN" style="display: none">
+                                <input type="checkbox" name="time_slot[]" id="time_slot" value="PRN">PRN</option>
+
+                            </span>
+                            </br>
+                            <input class="button" value="Submit" name="Submit" type="submit" ></input>
+                        </form>
+                        </br>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>Reports</h3>
+                <h4>Sort By: Resident</h4>
+                
+                <select id="resReport" name="res">
+                    <option value="All">All</option>
+                    <?php
+                    include 'config.php';
+                    $sql= "Select * from residents";
+                    $result = mysqli_query($con, $sql);
+
+                                while ($row = $result->fetch_assoc()) {
+                   ?>
+                    <option value="<?php echo $row['res_name']?> "><?php echo $row['res_name']?></option>
+                    <?php }
+                                ?>
+                </select>
+                <h3>
+                    Medication Record Details
+                </h3>
+                <button class="button" onclick="getReport(document.getElementById('resReport').value)">
+                    Generate Report
+                </button>
+                <h3>
+                    PRN Record Details
+                </h3>
+                <button class="button" onclick="getPrnReport(document.getElementById('resReport').value)">
+                    Generate Report
+                </button>
+            </div>
+        </div>
+    </body>
+</html>

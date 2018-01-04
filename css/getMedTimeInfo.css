@@ -1,0 +1,107 @@
+body { min-width: 750px; }
+
+.modal-content {
+    text-align: center;
+    width: 400px;
+    height: 400px;
+}
+.calendar {
+    position:relative;
+    align-self: center;
+    border: 2px black solid;
+    margin: auto;
+    width: 80%;
+    padding: 10px;
+    
+}
+
+.calendar_button {
+    display: inline-block;
+    width:40px;
+    
+    height:40px;
+    font-size: 20px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: black;
+    background-color: pink;
+    border: none;
+}
+
+.button {
+  
+    display: inline-block;
+    
+    font-size: 18px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #c92c34;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+
+/* Month header */
+.month {
+    padding: 20px 15px;
+    height: 75px;
+    background: white;
+    text-align: center;
+}
+
+/* Month list */
+.month ul {
+
+}
+
+.month ul li {
+    color: white;
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+
+}
+
+/* Previous button inside month header */
+.month .prev {
+    float: left;
+    padding-top: 10px;
+}
+
+/* Next button */
+.month .next {
+    float: right;
+    padding-top: 10px;
+}
+
+/* Weekdays (Mon-Sun) */
+.weekdays {
+    margin: 0;
+    background-color:#ddd;
+    font-size:18px;
+}
+
+
+/* Days (1-31) */
+.days {
+    background: #eee;
+    margin: 0;
+}
+
+li {
+    list-style-type: none;
+    display: inline-block;
+    width: 13.6%;
+    height: 150px;
+    text-align: center;
+    font-size:20px;
+    color: red;
+    border: 1px red solid;
+}
+
+
