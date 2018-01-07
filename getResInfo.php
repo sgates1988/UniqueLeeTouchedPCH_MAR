@@ -42,7 +42,7 @@
         ?>
         <div name="resMeds" id="resMeds" class="section">
             <h3> Select Medication(s) </h3>
-            <select name="" onchange="displayMeds(this.value, document.getElementById('Residents').value)">
+            <select id="medication" onchange="displayMeds(this.value, document.getElementById('Residents').value)">
                 <option name="residentsMeds" value="">Select medication....</option>
                 <option name="meds" value="all">ALL</option>
                 
@@ -64,6 +64,7 @@
         </div>
         <div name="resMedInfoSection">
             <p id="medInfo"></p>
+            <p id="medInfoall"></p>
         </div>
     </body>
 </html>

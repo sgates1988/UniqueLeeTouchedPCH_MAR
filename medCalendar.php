@@ -40,79 +40,83 @@ function getCalender($year = '', $month = '') {
     $totalDaysOfMonthDisplay = ($currentMonthFirstDay == 7) ? ($totalDaysOfMonth) : ($totalDaysOfMonth + $currentMonthFirstDay);
     $boxDisplay = ($totalDaysOfMonthDisplay <= 35) ? 35 : 42;
     ?>
-    <div id='calendar' class='calendar'>
+    <div id='calendar_section'>
         <div id="calender_section" class="month">
             <table>
                 <ul>
                     <a href="javascript:void(0);" class="prev" alt='Previous' onclick="getCalendar('calendar_div', '<?php echo date("Y", strtotime($date . ' - 1 Month')); ?>', '<?php echo date("m", strtotime($date . ' - 1 Month')); ?>');">  < < Previous</a>
-                    <input name="month_dropdown" type="button" value="<?php echo $dateMonth ?>"></input>
-                    <input name="year_dropdown" type="button" value="<?php echo $dateYear; ?>"></input>
+                    <button class="button" name="month_dropdown" disabled="" class="month_dropdown dropdown" value='<?php echo getAllMonths($dateMonth); ?>'><?php echo ($dateMonth); ?></button>
+                    <button class="button" name="year_dropdown" disabled="" class="year_dropdown dropdown"> <?php echo ($dateYear); ?></button>
                     <a href="javascript:void(0);" class="next" alt='Next' onclick="getCalendar('calendar_div', '<?php echo date("Y", strtotime($date . ' + 1 Month')); ?>', '<?php echo date("m", strtotime($date . ' + 1 Month')); ?>');">Next > > </a>
                 </ul>
             </table>
-        </div>
-        <div id="calender_section_top">
-            <ul>
-                <li>Sun</li>
-                <li>Mon</li>
-                <li>Tue</li>
-                <li>Wed</li>
-                <li>Thu</li>
-                <li>Fri</li>
-                <li>Sat</li>
-            </ul>
-        </div>
-        <div id="calender_section_bot">
-            <ul>
-                <?php
-                $dayCount = 1;
+
+            <div id="calender_section_top">
+                <ul>
+                    <li>Sun</li>
+                    <li>Mon</li>
+                    <li>Tue</li>
+                    <li>Wed</li>
+                    <li>Thu</li>
+                    <li>Fri</li>
+                    <li>Sat</li>
+                </ul>
+            </div>
+            <div id="calender_section_bot">
+                <ul>
+                    <?php
+                    $dayCount = 1;
 
 
-                $time_slot = ($_GET['time_slot']);
-                $med = ($_GET['med']);
-                $res = ($_GET['res']);
-                $emp = ($_GET['emp']);
-                for ($cb = 1; $cb <= $boxDisplay; $cb++) {
-                    if (($cb >= $currentMonthFirstDay + 1 || $currentMonthFirstDay == 7) && $cb <= ($totalDaysOfMonthDisplay)) {
-                        //Current date
-                        if ($dayCount <= 9) {
-                            $currentDate = $dateYear . '-' . $dateMonth . '-' . '0' . $dayCount;
-                            ;
-                        } else {
-                            $currentDate = $dateYear . '-' . $dateMonth . '-' . $dayCount;
+                    $time_slot = ($_GET['time_slot']);
+                    $med = ($_GET['med']);
+                    $res = ($_GET['res']);
+                    $emp = ($_GET['emp']);
+                    for ($cb = 1; $cb <= $boxDisplay; $cb++) {
+                        if (($cb >= $currentMonthFirstDay + 1 || $currentMonthFirstDay == 7) && $cb <= ($totalDaysOfMonthDisplay)) {
+                            //Current date
+                            if ($dayCount <= 9) {
+                                $currentDate = $dateYear . '-' . $dateMonth . '-' . '0' . $dayCount;
+                                ;
+                            } else {
+                                $currentDate = $dateYear . '-' . $dateMonth . '-' . $dayCount;
+                            }
+
+                            $eventNum = 0;
+                            //Include con configuration file
+                            include 'config.php';
+                            //Get number of events based on the current date
+                            $result = $con->query("SELECT * FROM med_records WHERE entry_date = '" . $currentDate . "' AND time_slot = '" . $time_slot . "'");
+                            $eventNum = $result->num_rows;
+                            //Define date cell color
+                            if (strtotime($currentDate) == strtotime(date("Y-m-d"))) {
+                                echo '<li date="' . $currentDate . '" class="grey date_cell" >';
+                            } elseif ($eventNum > 0) {
+                                echo '<li date="' . $currentDate . '" class="light_sky date_cell" >';
+                            } else {
+                                echo '<li date="' . $currentDate . '" class="date_cell" >';
+                            }
+                            //Date cell
+                            echo '<span>';
+                            if ($eventNum > 0) {
+                                echo '<input class="calendar_button" type="button"  id=' . $currentDate . ' name="date[]" value=' . $dayCount . ' ">';
+                                echo '<a class="existRecord" >Done</a>';
+                            } else {
+                                echo '<input class="calendar_button" type="button"  id=' . $currentDate . ' name="date[]" value=' . $dayCount . ' onclick="MedRecordEntryModalOpen(this.id)">';
+                            }
+                            echo '</span>';
+
+
+                            echo '</li>';
+                            $dayCount++;
+                            ?>
+                        <?php } else { ?>
+                            <li><span></span></li>
+                            <?php
                         }
-
-                        $eventNum = 0;
-                        //Include con configuration file
-                        include 'config.php';
-                        //Get number of events based on the current date
-                        $result = $con->query("SELECT * FROM med_records WHERE entry_date = '" . $currentDate . "' AND status = 1 AND time_slot = '" . $time_slot . "'");
-                        $eventNum = $result->num_rows;
-                        //Define date cell color
-                        if (strtotime($currentDate) == strtotime(date("Y-m-d"))) {
-                            echo '<li date="' . $currentDate . '" >';
-                        } elseif ($eventNum > 0) {
-                            echo '<li date="' . $currentDate . '" >';
-                        } else {
-                            echo '<li date="' . $currentDate . '" >';
-                        }
-                        //Date cell
-                        echo '<span>';
-                        echo '<input class="calendar_button" type="button"  id=' . $currentDate . ' name="date[]" value=' . $dayCount . ' onclick="MedRecordEntryModalOpen(this.id)">';
-                        echo ($eventNum > 0) ? '<a href="javascript:;" onclick="getEvents(\'' . $currentDate . '\');">Completed</a>' : '';
-                        echo '</span>';
-
-    
-                        echo '</li>';
-                        $dayCount++;
-                        ?>
-                    <?php } else { ?>
-                        <li><span></span></li>
-                        <?php
                     }
-                }
-                ?>
-            </ul>
+                    ?>
+                </ul></div>
         </div>
     </div>
     <?php
@@ -145,22 +149,18 @@ function getYearList($selected = '') {
     return $options;
 }
 
-/*
- * Get events by date
- */
-
 function getEvents($date = '') {
     //Include con configuration file
     include 'config.php';
     $eventListHTML = '';
     $date = $date ? $date : date("Y-m-d");
     //Get events based on the current date
-    $result = $con->query("SELECT * FROM med_records WHERE entry_date = '" . $date . "' AND status = 1");
+    $result = $con->query("SELECT * FROM med_records WHERE entry_date = '" . $date . "' ");
     if ($result->num_rows > 0) {
         $eventListHTML = '<h2>Events on ' . date("l, d M Y", strtotime($date)) . '</h2>';
         $eventListHTML .= '<td>';
         while ($row = $result->fetch_assoc()) {
-            $eventListHTML .= '<td>' . $row['title'] . '</td>';
+            $eventListHTML .= '<td>' . $row['emp_name'] . '</td>';
         }
         $eventListHTML .= '</td>';
     }

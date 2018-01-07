@@ -51,4 +51,10 @@ $(document).ready(function () {
     $(document).click(function () {
         $('#event_list').slideUp('slow');
     });
+    
 });
+
+function disable() {
+        document.getElementById('<?php echo $currentDate  ?> ').style = 'disabled';
+    }
+}

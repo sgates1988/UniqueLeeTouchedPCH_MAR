@@ -16,7 +16,7 @@
                 Medical Administration Records
             </h2>
         </div>
-        <div class="marsection">
+        <div>
         <h2>Residents Information</h2>
         <div id="selectResident" class="section" >
             <h3>Select a Resident</h3>

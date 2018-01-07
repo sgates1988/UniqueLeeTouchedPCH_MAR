@@ -144,10 +144,6 @@
                                 <?php }
                                 ?>
                                 </select>
-                                <select name="am_pm">
-                                     <option name="am_pm" id="am_pm[]" value="AM">AM</option>
-                                      <option name="am_pm" id="am_pm[]" value="PM">PM</option>
-                                </select>
                             </p>
                             <span id="PRN" style="display: none">
                                 <input type="checkbox" name="time_slot[]" id="time_slot" value="PRN">PRN</option>

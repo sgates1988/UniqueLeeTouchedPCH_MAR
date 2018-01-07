@@ -51,7 +51,7 @@ function displayMeds(med, name) {
     }
 }
 
-function displayMedTime(time_slot, med_name, resident, emp_name) {
+function displayMedTime(time_slot, med, resident, emp_name) {
 
     if (time_slot === "") {
         document.getElementById("medTimeInfo").innerHTML = "";
@@ -83,18 +83,57 @@ function displayMedTime(time_slot, med_name, resident, emp_name) {
                 document.getElementById("medTimeInfo").innerHTML = this.responseText;
             }
         };
-        xmlhttp.open("GET", "getMedTimeInfo.php?time_slot=" + time_slot + "&med=" + med_name + "&res=" + resident + "&emp=" + emp_name, true);
+        xmlhttp.open("GET", "getMedTimeInfo.php?time_slot=" + time_slot + "&med=" + med + "&res=" + resident + "&emp=" + emp_name, true);
         xmlhttp.send();
     }
 }
 
 
-function addRecord(selectedDate) {
+function displayAllMedTime(time_slot, med, resident, emp_name) {
+
+    if (time_slot === "") {
+        document.getElementById("medTimeInfo").innerHTML = "";
+        return;
+    } else if (time_slot === "all") {
+        document.getElementById("medTimeInfo").innerHTML = "display all";
+        return;
+    } else if (time_slot === "PRN") {
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                document.getElementById("medInfoall").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET", "prnPage.php?res=" + resident, true);
+        xmlhttp.send();
+    } else {
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                document.getElementById("medInfoall").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET", "getMedTimeInfo.php?time_slot=" + time_slot + "&med=" + med + "&res=" + resident + "&emp=" + emp_name, true);
+        xmlhttp.send();
+    }
+}
+
+
+function addRecord(selectedDate,status,comments) {
 //Setting the values for employee, time, resident and medication
     var emp = document.getElementById("emp").value;
     var time_slot = document.getElementById("time_slot").value;
     var res = document.getElementById("res").value;
     var med = document.getElementById("med").value;
+    
     if (window.XMLHttpRequest) {
         xmlhttp = new XMLHttpRequest();
     } else {
@@ -105,7 +144,7 @@ function addRecord(selectedDate) {
             document.getElementById("medTimeInfo").innerHTML = this.responseText;
         }
     };
-    xmlhttp.open("GET", "UpdateMedRecord.php?time_slot=" + time_slot + "&med=" + med + "&res=" + res + "&emp=" + emp + "&selectedDate=" + selectedDate, true);
+    xmlhttp.open("GET", "UpdateMedRecord.php?time_slot=" + time_slot + "&med=" + med + "&res=" + res + "&emp=" + emp + "&selectedDate=" + selectedDate+ "&status=" + status + "&comments=" + comments, true);
     xmlhttp.send();
 }
 
