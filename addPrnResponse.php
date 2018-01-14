@@ -3,15 +3,13 @@
 include('config.php');
 
 $posted = false;
-$residents = $_GET['residents'];
-$date = $_GET['date'];
-$time = $_GET['time'];
-$emp = $_GET['emp'];
-$drug = $_GET['drug'];
-$reason = $_GET['reason'];
+$id = $_GET['id'];
+$response = $_GET['response'];
+$responseDate = $_GET['responseDate'];
+$responseTime = $_GET['responseTime'];
+$responseEmp = $_GET['responseEmp'];
 
-$sql = "INSERT INTO prn_records (res_name, date, time, emp_name, drug_strgth_dose, reason, timestamp)VALUES "
-        . "('$residents', '$date', '$time', '$emp', '$drug', '$reason', NOW())";
+$sql = "UPDATE prn_records SET response ='$response', response_date = '$responseDate', response_time = '$responseTime', response_emp_name = '$responseEmp', timestamp = NOW() WHERE prn_records_id = '$id'";
 
 if (mysqli_query($con, $sql)) {
     $posted = true;
