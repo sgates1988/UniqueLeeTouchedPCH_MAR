@@ -127,7 +127,7 @@ function displayAllMedTime(time_slot, love, resident, emp_name) {
 }
 
 
-function addRecord(selectedDate, status, comments) {
+function addRecord(selectedDate, status, comments, injectionSite , units) {
 //Setting the values for employee, time, resident and medication
     var emp = document.getElementById("emp").value;
     var time_slot = document.getElementById("time_slot").value;
@@ -148,7 +148,7 @@ function addRecord(selectedDate, status, comments) {
                 document.getElementById("medInfo").innerHTML = this.responseText;
             }
         };
-        xmlhttp.open("GET", "UpdateMedRecord.php?time_slot=" + time_slot + "&med=" + med + "&res=" + res + "&emp=" + emp + "&selectedDate=" + selectedDate + "&status=" + status + "&comments=" + comments, true);
+        xmlhttp.open("GET", "UpdateMedRecord.php?time_slot=" + time_slot + "&med=" + med + "&res=" + res + "&emp=" + emp + "&selectedDate=" + selectedDate + "&status=" + status + "&comments=" + comments + "&injectionSite=" + injectionSite + "&units=" + units, true);
         xmlhttp.send();
     }
 }
@@ -288,4 +288,12 @@ function getAlerts() {
     };
     xmlhttp.open("POST", "alerts.php", true);
     xmlhttp.send();
+}
+
+function checkInjection(status) {
+    if (status === "Signed-off") {
+        document.getElementById('injection').style.display = '';
+    }else{
+    document.getElementById('injection').style.display = 'none';
+}
 }

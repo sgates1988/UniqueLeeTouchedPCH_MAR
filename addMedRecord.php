@@ -1,5 +1,3 @@
-
-
 <?php
 
 include('config.php');
@@ -11,6 +9,12 @@ $route = $_POST['route'];
 $frequency = $_POST['frequency'];
 $diagnosis = $_POST['diagnosis'];
 $time_slot = implode(",", $_POST['time_slot']);
+$rxNum = $_POST['rxNum'];
+
+$prescriber = $_POST['prescriber'];
+$tabCount = $_POST['tabCount'];
+$addltFreq = $_POST['addltFreq'];
+$notes = $_POST['notes'];
 //echo $time_slot;
 $eachtimeslot = explode(",", $time_slot);
 //converts an array to JSON string
@@ -27,7 +31,7 @@ if (isset($_POST['Submit'])) {
                 if ($eachtimeslot[$i] == "") {
                     
                 } else {
-                    $sql = "INSERT INTO res_medications (res_name, med_name, med_route, med_freq, med_diagnosis, time_slot)VALUES ('$resident', '$med_name', '$route', '$frequency', '$diagnosis', '$eachtimeslot[$i]')";
+                    $sql = "INSERT INTO res_medications (res_name, med_name, med_route, med_freq, med_diagnosis, time_slot, rxNum, prescriber, tabletCount, med_freq_addtl, notes)VALUES ('$resident', '$med_name', '$route', '$frequency', '$diagnosis', '$eachtimeslot[$i]', '$rxNum', '$prescriber', '$tabCount', '$addltFreq', '$notes')";
                     $i++;
                     if (mysqli_query($con, $sql)) {
                         $posted = true;

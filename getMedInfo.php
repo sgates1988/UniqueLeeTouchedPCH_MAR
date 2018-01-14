@@ -38,9 +38,32 @@
                 echo "<tr>";
                 echo "<td><strong>Frequency:</strong> " . $row['med_freq'] . "</td>";
                 echo "</tr>";
+                
+                echo "<tr>";
+                echo "<td><strong>Additional Frequency:</strong> " . $row['med_freq_addtl'] . "</td>";
+                echo "</tr>";
+                
                 echo "<tr>";
                 echo "<td><strong>Diagnosis:</strong> " . $row['med_diagnosis'] . "</td>";
                 echo "</tr>";
+                
+                echo "<tr>";
+                echo "<td><strong>Rx Number:</strong> " . $row['rxNum'] . "</td>";
+                echo "</tr>";
+                
+                echo "<tr>";
+                echo "<td><strong>Prescriber:</strong> " . $row['prescriber'] . "</td>";
+                echo "</tr>";
+                
+                echo "<tr>";
+                echo "<td><strong>Tablet Count:</strong> " . $row['tabletCount'] . "</td>";
+                echo "</tr>";
+                
+               
+                echo "<tr>";
+                echo "<td><strong>Notes:</strong> " . $row['notes'] . "</td>";
+                echo "</tr>";
+                
             }
         } else {
             echo "No data available";
