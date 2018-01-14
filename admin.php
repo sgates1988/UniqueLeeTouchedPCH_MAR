@@ -99,9 +99,6 @@
                              <label>Number of Tablets:</label>
                             <input required name="tabCount" type="text"/>
                             </br>
-                             <label>Injection Site:</label>
-                            <input required name="injectionSite" type="text"/>
-                            </br>
                             <label>Route Name:</label>
                             <select required name="route" >
                                 <?php

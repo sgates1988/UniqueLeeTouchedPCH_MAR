@@ -10,11 +10,11 @@
             border: 2px black solid;
             width:100%;
         }
-        
+
         th {
             border: 1px grey solid;
         }
-        
+
         td {
             border: 1px grey solid;
         }
@@ -23,10 +23,29 @@
         }
     </style>
     <body>
+        <?php
+        include('config.php');
+        $res = $_GET['res'];
+
+        if ($res == "All" || "") {
+            $sql = "SELECT * FROM prn_records order by entry_date ASC";
+        } else {
+            $sql = "SELECT * FROM prn_records where res_name = '$res' order by date ASC";
+        }
+        $result = mysqli_query($con, $sql);
+        ?>
         <div>
-            <h1>
-                PRN Records Report
-            </h1>
+            <h1><img src="images/logo_1.png" alt=""/>UniqueLee Touched PCH</h1>
+            <h2>PRN Report</h2>
+            <strong>
+                Resident Name: <?php echo $res ?>
+                <br>
+                416 Azela Dr
+                <br>
+                STOCKBRIDGE, GA 30281-1632
+                <br>
+                (770) 405-9998                
+            </strong>
             <p>
                 "PRN Medication" (pro re nata) means any nonprescription or prescription medication that is to be taken as needed as oppose to "routine" medication that are taken on a regular schedule (e.g. every morning , or twice a day). Complete all boxes in the graph below. The first line is an given example. Wait 30-60 minutes before documenting the response.
             </p>
@@ -47,15 +66,6 @@
                 </tr>
 
                 <?php
-                include('config.php');
-                 $res = $_GET['res'];
-                
-                if ($res == "All" || "") {
-                  $sql = "SELECT * FROM prn_records order by entry_date ASC";   
-                } else {
-                   $sql = "SELECT * FROM prn_records where res_name = '$res' order by date ASC"; 
-                }
-                $result = mysqli_query($con, $sql);
                 if ($result == false) {
                     echo "No results Found";
                 } else {
