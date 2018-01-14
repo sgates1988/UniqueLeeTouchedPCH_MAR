@@ -1,6 +1,7 @@
 <html>
     <link href="css/mar.css" rel="stylesheet" type="text/css"/>
     <script src="js/all.js" type="text/javascript"></script>
+    <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
     <head>
         <meta charset="UTF-8">
         <title>MAR Report</title>
@@ -10,11 +11,11 @@
             border: 2px black solid;
             width:100%;
         }
-        
+
         th {
             border: 1px grey solid;
         }
-        
+
         td {
             border: 1px grey solid;
         }
@@ -23,11 +24,34 @@
         }
     </style>
     <body>
+        <?php
+        include('config.php');
+        $res = $_GET['res'];
+
+        if ($res == "All" || "") {
+            $sql = "SELECT * FROM med_records order by entry_date ASC";
+        } else {
+            $sql = "SELECT * FROM med_records where res_name = '$res' order by entry_date ASC";
+        }
+
+        $result = mysqli_query($con, $sql);
+        ?>
         <div>
-            <h1>
-                Medical Administration Records Report
-            </h1>
+            <h1> <img src="images/logo_1.png" alt=""/>UniqueLee Touched PCH</h1>
+            <h2>Medical Administration Report</h2>
+            <strong>
+                Resident Name: <?php echo $res ?>
+                <br>
+                416 Azela Dr
+                <br>
+                STOCKBRIDGE, GA 30281-1632
+                <br>
+                (770) 405-9998
+
+            </strong>
+
         </div>
+        <br>
         <div>
             <table>
                 <tr>
@@ -39,17 +63,19 @@
                     <th>Date Signed Off</th>
                     <th>Status</th>
                     <th>Comments</th>
+                    <th>Injection Site</th>
+                    <th>Units</th>
                 </tr>
                 <?php
                 include('config.php');
                 $res = $_GET['res'];
-                
+
                 if ($res == "All" || "") {
-                  $sql = "SELECT * FROM med_records order by entry_date ASC";   
+                    $sql = "SELECT * FROM med_records order by entry_date ASC";
                 } else {
-                   $sql = "SELECT * FROM med_records where res_name = '$res' order by entry_date ASC"; 
+                    $sql = "SELECT * FROM med_records where res_name = '$res' order by entry_date ASC";
                 }
-               
+
                 $result = mysqli_query($con, $sql);
                 if ($result == false) {
                     echo "No results Found";
@@ -75,20 +101,28 @@
                             echo $row['entry_date'];
                             echo "</td>";
 
-                            echo "<td>";
+                            echo "<td style='font-family:Sofia'>";
                             echo $row['emp_name'];
                             echo "</td>";
 
                             echo "<td>";
                             echo $row['timestamp'];
                             echo "</td>";
-                            
+
                             echo "<td>";
                             echo $row['status'];
                             echo "</td>";
-                            
+
                             echo "<td>";
                             echo $row['comments'];
+                            echo "</td>";
+
+                            echo "<td>";
+                            echo $row['injectionSite'];
+                            echo "</td>";
+
+                            echo "<td>";
+                            echo $row['units'];
                             echo "</td>";
 
                             echo "</tr>";
@@ -104,6 +138,6 @@
             <button class="button" id="back" onclick="Back()"> Back
             </button>
         </div>
-           
+
     </body>
 </html>
