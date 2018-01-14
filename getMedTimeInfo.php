@@ -1,5 +1,5 @@
 <?php
-include_once('medCalendar.php');
+
 ?>
 <head>
     <title>UniqueLee Touched PCH</title>
@@ -7,6 +7,7 @@ include_once('medCalendar.php');
 </head>
 <?php
 include('config.php');
+include_once('medCalendar.php');
 $sql = "SELECT * from med_records"
 ?>
 <div id="info" style="display: none">
@@ -40,26 +41,28 @@ $sql = "SELECT * from med_records"
     <div class="modal-content">
 
         <span onclick="acceptMedRecModalClose()" class="close">&times;</span>
-        <h2>
+        <h3>
             Employee Medication Sign Off
-        </h2>
+        </h3>
         <p id="selectedDate" style='display:none'></p>
+        <span id="empcontent"></span>
         <span id="content"></span>
         <p id="content-options">
+        <p id="error" style="background-color: red; color: white"></p>
         <form>
             <span>Select action :</span>
             <select id="status">
                 <option type="checkbox" id="select" name="select" value="">Select</option>
 
-                <option type="checkbox" id="sign-off" name="sign-off" value="sign-off">Medication Given</option>
+                <option type="checkbox" id="sign-off" name="sign-off" value="Signed-off">Medication Given</option>
 
-                <option type="checkbox" id="refused" name="refused" value="refused">Refused</option>
+                <option type="checkbox" id="refused" name="refused" value="Refused">Refused</option>
 
 
                 <option type="checkbox" id="loa" name="loa" value="LOA">LOA</option>
 
 
-                <option type="checkbox" id="other" name="other" value="other">Other - See Comments</option>
+                <option type="checkbox" id="other" name="other" value="Other">Other - See Comments</option>
 
             </select> 
             </br>

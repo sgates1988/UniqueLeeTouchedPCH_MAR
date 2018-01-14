@@ -6,8 +6,12 @@ $res = ($_GET['res']);
 $emp = ($_GET['emp']);
 $sql = "SELECT * FROM med_records WHERE time_slot = '$time_slot' AND med_name = '$med' AND res_name = '$res' AND emp_name = '$emp'";
 $sql2 = "SELECT * FROM med_records WHERE time_slot = '$time_slot' AND med_name = '$med' AND res_name = '$res' AND emp_name = '$emp'";
-echo "<h3 style='text-align:center'> Time Entry for $res $med for $time_slot</h3>";
-
+echo "<strong> Please find below the calendar for:</strong>";
+?>
+<p>Resident: <?php echo $res ?></p>
+<p>Medication: <?php echo $med ?></p>
+<p>Scheduled Time: <?php echo $time_slot ?></p>
+<?php
 $Dates = mysqli_query($con, $sql2);
 $row = mysqli_fetch_array($Dates);
 
@@ -44,11 +48,36 @@ function getCalender($year = '', $month = '') {
         <div id="calender_section" class="month">
             <table>
                 <ul>
-                    <a href="javascript:void(0);" class="prev" alt='Previous' onclick="getCalendar('calendar_div', '<?php echo date("Y", strtotime($date . ' - 1 Month')); ?>', '<?php echo date("m", strtotime($date . ' - 1 Month')); ?>');">  < < Previous</a>
-                    <button class="button" name="month_dropdown" disabled="" class="month_dropdown dropdown" value='<?php echo getAllMonths($dateMonth); ?>'><?php echo ($dateMonth); ?></button>
-                    <button class="button" name="year_dropdown" disabled="" class="year_dropdown dropdown"> <?php echo ($dateYear); ?></button>
-                    <a href="javascript:void(0);" class="next" alt='Next' onclick="getCalendar('calendar_div', '<?php echo date("Y", strtotime($date . ' + 1 Month')); ?>', '<?php echo date("m", strtotime($date . ' + 1 Month')); ?>');">Next > > </a>
-                </ul>
+                    <h2  name="month_dropdown" disabled="" class="month_dropdown dropdown" value='<?php echo getAllMonths($dateMonth); ?>'>
+                        <?php
+                        if ($dateMonth === "01") {
+                            echo "January";
+                        } elseif ($dateMonth === "02") {
+                            echo "February";
+                        } elseif ($dateMonth === "03") {
+                            echo "March";
+                        } elseif ($dateMonth === "04") {
+                            echo "April";
+                        } elseif ($dateMonth === "05") {
+                            echo "May";
+                        } elseif ($dateMonth === "06") {
+                            echo "June";
+                        } elseif ($dateMonth == "07") {
+                            echo "July";
+                        } elseif ($dateMonth === "08") {
+                            echo "August";
+                        } elseif ($dateMonth === "09") {
+                            echo "September";
+                        } elseif ($dateMonth === "10") {
+                            echo "October";
+                        } elseif ($dateMonth === "11") {
+                            echo "November";
+                        } elseif ($dateMonth === "12") {
+                            echo "December";
+                        }
+                        ?> <?php echo ' ' .($dateYear); ?></h2>
+                    
+                     </ul>
             </table>
 
             <div id="calender_section_top">
@@ -86,8 +115,9 @@ function getCalender($year = '', $month = '') {
                             //Include con configuration file
                             include 'config.php';
                             //Get number of events based on the current date
-                            $result = $con->query("SELECT * FROM med_records WHERE entry_date = '" . $currentDate . "' AND time_slot = '" . $time_slot . "'");
+                            $result = $con->query("SELECT * FROM med_records WHERE entry_date = '" . $currentDate . "' AND time_slot = '" . $time_slot . "' AND med_name = '$med'");
                             $eventNum = $result->num_rows;
+                            $eventrow = mysqli_fetch_array($result);
                             //Define date cell color
                             if (strtotime($currentDate) == strtotime(date("Y-m-d"))) {
                                 echo '<li date="' . $currentDate . '" class="grey date_cell" >';
@@ -100,7 +130,9 @@ function getCalender($year = '', $month = '') {
                             echo '<span>';
                             if ($eventNum > 0) {
                                 echo '<input class="calendar_button" type="button"  id=' . $currentDate . ' name="date[]" value=' . $dayCount . ' ">';
-                                echo '<a class="existRecord" >Done</a>';
+                                echo '<strong class="existRecord" >';
+                                echo $eventrow['status'];
+                                echo '</strong>';
                             } else {
                                 echo '<input class="calendar_button" type="button"  id=' . $currentDate . ' name="date[]" value=' . $dayCount . ' onclick="MedRecordEntryModalOpen(this.id)">';
                             }
@@ -110,12 +142,12 @@ function getCalender($year = '', $month = '') {
                             echo '</li>';
                             $dayCount++;
                             ?>
-                        <?php } else { ?>
+        <?php } else { ?>
                             <li><span></span></li>
-                            <?php
-                        }
-                    }
-                    ?>
+            <?php
+        }
+    }
+    ?>
                 </ul></div>
         </div>
     </div>

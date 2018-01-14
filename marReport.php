@@ -37,6 +37,8 @@
                     <th>Scheduled Date</th>
                     <th>Staff Signature</th>
                     <th>Date Signed Off</th>
+                    <th>Status</th>
+                    <th>Comments</th>
                 </tr>
                 <?php
                 include('config.php');
@@ -79,6 +81,14 @@
 
                             echo "<td>";
                             echo $row['timestamp'];
+                            echo "</td>";
+                            
+                            echo "<td>";
+                            echo $row['status'];
+                            echo "</td>";
+                            
+                            echo "<td>";
+                            echo $row['comments'];
                             echo "</td>";
 
                             echo "</tr>";

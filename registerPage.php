@@ -43,7 +43,7 @@
         </div>
     </div>
     </br>
-    <a class="button" href="index.php">Return Home -></a>
+    <a class="button" href="index.php">Click here to return to MAR login page</a>
     <div>
 </body>
 </html>

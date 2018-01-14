@@ -41,6 +41,8 @@
         mysqli_close($con);
         ?>
         <div name="resMeds" id="resMeds" class="section">
+            <span style="background-color: yellow;">*Reorder medications & Supplies - 5 day   			
+</span>
             <h3> Select Medication(s) </h3>
             <select id="medication" onchange="displayMeds(this.value, document.getElementById('Residents').value)">
                 <option name="residentsMeds" value="">Select medication....</option>
