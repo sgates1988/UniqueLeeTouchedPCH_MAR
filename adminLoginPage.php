@@ -19,16 +19,16 @@
             </h3>
             <form method="post" action="adminlogin.php">
                 <label> Username: </label>
-                <input type="text" name="empUsername"/>
+                <input type="text" name="empUsername" autocomplete=""/>
                 </br>
                 <label> Password: </label>
-                <input type="password" name="empPassword"/>
+                <input type="password" name="empPassword" autocomplete=""/>
                 </br>
                 <input class="button" type="submit" value="Login" />
             </form>
         </div>
         </br>
-        <a  class="button" href="index.php">Return Home>>></a>
+        <a  class="button" href="index.php">Click here to return to MAR login page</a>
         <div>
     </body>
 </html>

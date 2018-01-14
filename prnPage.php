@@ -8,8 +8,16 @@
     <body>
         <div>
             <h1>
-                PRN Documentation Form
+                PRN Records
             </h1>
+            <strong style="text-align: center">Displaying Search Results For: </strong>
+            <p style="color: red"><?php
+            $resident = $_GET['res'];
+            $med = $_GET['med'];
+            echo  'Resident: ' .$resident;
+            echo  '<br> Medication: ' .$med;
+            ?>
+            </p>
             <p>
                 "PRN Medication" (pro re nata) means any nonprescription or prescription medication that is to be taken as needed as oppose to "routine" medication that are taken on a regular schedule (e.g. every morning , or twice a day).
                 Complete all boxes in the graph below. The first line is an given example. Wait 30-60 minutes before documenting the response. 
@@ -20,7 +28,7 @@
                 <tr>
                     <th>Resident Name</th>
                     <th>Date</th>
-                    <th>Time</th>
+                    <th>Time Given</th>
                     <th>Staff Signature</th>
                     <th>Drug - Strength - Dose</th>
                     <th>Reason Given</th>
@@ -29,13 +37,18 @@
                     <th>Time</th>
                     <th>Staff Signature</th>
                 </tr>
-
+                <div style="display: none">
+                    <input type="text" id="med" value="<?php echo $med ?>">
+                </div>
                 <?php
                 include('config.php');
                 $res = $_GET['res'];
-
-                $sql = "SELECT * FROM prn_records where res_name = '$res'";
+                $med = $_GET['med'];
+                $sql = "SELECT * FROM prn_records where res_name = '$res' AND drug_strgth_dose = '" . $med . "'";
                 $result = mysqli_query($con, $sql);
+
+
+
                 if ($result == false) {
                     echo "No results Found";
                 } else {
@@ -64,13 +77,22 @@
                             echo $row['drug_strgth_dose'];
                             echo "</td>";
 
-                            echo "<td>";
-                            echo $row['reason'];
-                            echo "</td>";
-
-                            echo "<td>";
-                            echo $row['response'];
-                            echo "</td>";
+                            
+                                echo "<td>";
+                                echo $row['reason'];
+                                echo "</td>";
+                            
+                            if ($row['response'] == '') {
+                                echo "<td>";
+                                ?>
+                                <button  id="add" onclick="prnResponseModalOpen(this.value)" value="<?php echo $row['prn_records_id'] ?>" >Add Response</button>
+                                <?php
+                                echo "</td>";
+                            } else {
+                                echo "<td>";
+                                echo $row['response'];
+                                echo "</td>";
+                            }
 
 
                             echo "<td>";
@@ -95,16 +117,16 @@
                 }
                 ?>
             </table>
-            <button id='prnEntry' class='button' onclick="prnModalOpen()" > New Entry </button></div>
+            <button id='prnEntry' class='button' onclick="prnModalOpen(document.getElementById('med').value)" > New Entry </button></div>
         <div id="prnModal" class="modal" style="display:none" >
             <div class="modal-content">
 
                 <span onclick="prnModalClose()" class="close">&times;</span>
-                <h1>
+                <h3>
                     New PRN Record
-                </h1>
+                </h3>
                 <form>
-                    <div class="container"> 
+                    <div style="padding-left: 20px"> 
                         <label>Resident Name:</label>
                         </br>
                         <?php
@@ -125,81 +147,31 @@
                         </br>
                         <label> Date Medication Given:</label>
                         </br>
-                        <input class="input" id="date" name="date" type="date">
+                        <input class="input" id="date" required name="date" type="date">
                         </br>
                         <label>Time Medication Given:</label>
                         </br>
-                        <select class="select">
-                            <?php
-                            include('config.php');
-
-                            $sql = "SELECT * FROM time_slot";
-                            $result = mysqli_query($con, $sql);
-
-                            while ($row = $result->fetch_assoc()) {
-                                $con->close();
-                                ?>
-
-                                <option id="time" name="time"value="<?php echo $row['time_slot_name'] ?>"><?php echo $row['time_slot_name']; ?></option>
-
-                            <?php }
-                            ?>
-                        </select>
+                        <input type="time" required id="time">
                         </br>
                         <label>Staff Signiture:</label>
                         </br>
-                        <select class="select" disabled >
+                        <select class="select" required disabled >
                             <option name="emp"  id="emp" value="<?php echo $_COOKIE['user'] ?>"><?php echo $_COOKIE['user'] ?></option>
                         </select>
                         </br>
-                        <label>Drug-Strength-Dose:</label>
+                        <label>Medication-Strength-Dose:</label>
                         </br>
-                        <input class="input" name="drug" id="drug" type="text">
+                        <input class="input" disabled name="drug" id="drug" type="text" value="<?php echo $med ?>">
                         </br>
-                    </div>
-                    <div class="container">
                         <label>Reason:</label>
                         </br>
-                        <input class="input" name="reason" id="reason" type="text">
+                        <input class="input" required name="reason" id="reason" type="text">
                         </br>
-                        <label>Response:</label>
-                        </br>
-                        <input class="input" name="response" id="response" type="text">
-                        </br>
-                        <label>Response Date:</label>
-                        </br>
-                        <input  class="input" id="response_date" name="response_date" type="date">
-                        </br>
-                        <label>Response Time:</label>
-                        </br>
-                        <select class="select">
-                            <?php
-                            include('config.php');
 
-                            $sql = "SELECT * FROM time_slot";
-                            $result = mysqli_query($con, $sql);
-
-                            while ($row = $result->fetch_assoc()) {
-                                $con->close();
-                                ?>
-
-                                <option id="response_time" name="time"value="<?php echo $row['time_slot_name'] ?>"><?php echo $row['time_slot_name']; ?></option>
-
-                            <?php }
-                            ?>
-                        </select>
-                        </br>
-                        <label>Staff Signiture for Response:</label>
-                        </br>
-                        <select class="select" disabled>
-                            <option name="response_emp" id="response_emp" value="<?php echo $_COOKIE['user'] ?>"><?php echo $_COOKIE['user'] ?></option>
-                        </select>
-                        </br>
-                    </div>
                 </form>
                 <button class="button" onclick="savePrnForm();return false;">Save</button>
             </div>
+            </div>
         </div>
-    </div>
-</body>
+    </body>
 </html>

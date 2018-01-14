@@ -5,15 +5,20 @@
         <group>
             <file>file:/C:/xampp/htdocs/UniqueLeeTouchedPCH_MAR/getMedInfo.php</file>
             <file>file:/C:/xampp/htdocs/UniqueLeeTouchedPCH_MAR/js/all.js</file>
-            <file>file:/C:/xampp/htdocs/UniqueLeeTouchedPCH_MAR/mar.php</file>
-            <file>file:/C:/xampp/htdocs/UniqueLeeTouchedPCH_MAR/schedule.php</file>
             <file>file:/C:/xampp/htdocs/UniqueLeeTouchedPCH_MAR/getAllMedInfo.php</file>
-            <file>file:/C:/xampp/htdocs/UniqueLeeTouchedPCH_MAR/css/getMedTimeInfo.css</file>
+            <file>file:/C:/xampp/htdocs/UniqueLeeTouchedPCH_MAR/prnPage.php</file>
+            <file>file:/C:/xampp/htdocs/UniqueLeeTouchedPCH_MAR/adminlogin.php</file>
             <file>file:/C:/xampp/htdocs/UniqueLeeTouchedPCH_MAR/addMedRecord.php</file>
-            <file>file:/C:/xampp/htdocs/UniqueLeeTouchedPCH_MAR/js/medCalendar.js</file>
             <file>file:/C:/xampp/htdocs/UniqueLeeTouchedPCH_MAR/getResInfo.php</file>
             <file>file:/C:/xampp/htdocs/UniqueLeeTouchedPCH_MAR/medCalendar.php</file>
+            <file>file:/C:/xampp/htdocs/UniqueLeeTouchedPCH_MAR/login.php</file>
             <file>file:/C:/xampp/htdocs/UniqueLeeTouchedPCH_MAR/getMedTimeInfo.php</file>
+            <file>file:/C:/xampp/htdocs/UniqueLeeTouchedPCH_MAR/prnResponsepage.php</file>
+            <file>file:/C:/xampp/htdocs/UniqueLeeTouchedPCH_MAR/addMedEmpEntry.php</file>
+            <file>file:/C:/xampp/htdocs/UniqueLeeTouchedPCH_MAR/addPrnEntry.php</file>
+            <file>file:/C:/xampp/htdocs/UniqueLeeTouchedPCH_MAR/js/admin.js</file>
+            <file>file:/C:/xampp/htdocs/UniqueLeeTouchedPCH_MAR/addResident.php</file>
+            <file>file:/C:/xampp/htdocs/UniqueLeeTouchedPCH_MAR/prnReport.php</file>
             <file>file:/C:/xampp/htdocs/UniqueLeeTouchedPCH_MAR/admin.php</file>
         </group>
     </open-files>

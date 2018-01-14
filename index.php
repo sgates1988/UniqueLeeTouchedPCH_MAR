@@ -20,17 +20,17 @@
             </h3>
             <form  name="login" method="post" action="login.php">
                 <label>Username:</label>
-                <input type="text" name="empUsername"/>
+                <input autocomplete type="text" name="empUsername"/>
                 </br>
                 <label>Password:</label>
-                <input type="password" name="empPassword"/>
+                <input autocomplete type="password" name="empPassword"/>
                 </br>
                 <input  class=button type="submit" name="submit" value="Login" />
             </form>
         </div>
         <div class='adminloginbox'>
             <h3>
-                AdminTool
+                Admin Tool
             </h3>
             <a class="button" href="adminLoginPage.php">Click here to login</a>
             <h3>

@@ -11,21 +11,13 @@ $date = $_GET['selectedDate'];
 $status = $_GET['status'];
 $comments = $_GET['comments'];
 //$date = $_GET['date'];
-$sqlcheck = "SELECT * from med_records where entry_date = '$date' AND time_slot = '$time_slot' AND res_name = '$resident' ";
 $sql = "INSERT INTO med_records (med_name, res_name, time_slot, emp_name, timestamp, entry_date , status, comments) VALUES ('$med_name', '$resident', '$time_slot', '$emp', NOW(), '$date', '$status', '$comments')";
 
-$result = mysqli_query($con, $sqlcheck);
-
-$count = mysqli_num_rows($result);
-if ($count >= 1) {
-    echo "<span style=' position:absolute; padding-left:10px; padding-right:10px; color:black; border-bottom: 6px solid red; background-color: lightgrey; width:200px;' > * Duplicate Entry. One Entry Only</span>";
-} else {
     if (mysqli_query($con, $sql)) {
         $posted = true;
     } else {
         $posted = false;
     }
-}
 mysqli_close($con);
 ?>
 
