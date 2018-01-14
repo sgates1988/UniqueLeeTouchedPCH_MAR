@@ -1,9 +1,8 @@
-<?php
-
-?>
+<?php ?>
 <head>
     <title>UniqueLee Touched PCH</title>
     <link href="css/getMedTimeInfo.css" rel="stylesheet" type="text/css"/>
+    <script src="js/all.js" type="text/javascript"></script>
 </head>
 <?php
 include('config.php');
@@ -50,8 +49,8 @@ $sql = "SELECT * from med_records"
         <p id="content-options">
         <p id="error" style="background-color: red; color: white"></p>
         <form>
-            <span>Select action :</span>
-            <select id="status">
+            <strong>*Select action :</strong>
+            <select id="status" onchange="checkInjection(this.value)">
                 <option type="checkbox" id="select" name="select" value="">Select</option>
 
                 <option type="checkbox" id="sign-off" name="sign-off" value="Signed-off">Medication Given</option>
@@ -66,10 +65,39 @@ $sql = "SELECT * from med_records"
 
             </select> 
             </br>
+            <span>Comments:</span>
             <input style="width:300px; height: 100px" id="comments" name="comments" value="" placeholder="Enter any relavent information here">
             </br>
+            </br>
+            <div id="injection" style="display: none">
+                <p>Note: Complete below fields ONLY if Injection was given</p>
+                <span>Injection Site :</span>
+                <select id="injectionSite" name="injectionSite" >
+                    <option value="N/A">N/A</option>
+                    <?php
+                    include('config.php');
 
-            <button  class="button" type="button" name="submit" onclick="addRecord(document.getElementById('selectedDate').innerHTML, document.getElementById('status').value, document.getElementById('comments').value);
+                    $sql = "SELECT * FROM injection_sites";
+                    $result = mysqli_query($con, $sql);
+
+                    while ($row = $result->fetch_assoc()) {
+                        $con->close();
+                        ?>
+
+                        <option  value="<?php echo $row['site'] ?>"><?php echo $row['site']; ?></option>
+
+                    <?php }
+                    ?>
+                </select>
+                </br>
+                <span>Units :</span>
+                <input type="text" id="units" name="units" value="N/A">
+                <br>
+            </div>
+
+            </br>
+
+            <button  class="button" type="button" name="submit" onclick="addRecord(document.getElementById('selectedDate').innerHTML, document.getElementById('status').value, document.getElementById('comments').value, document.getElementById('injectionSite').value, document.getElementById('units').value);
                     return false;">Accept</button>
         </form>
     </div>
