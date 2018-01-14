@@ -12,11 +12,15 @@
             </h1>
             <strong style="text-align: center">Displaying Search Results For: </strong>
             <p style="color: red"><?php
-            $resident = $_GET['res'];
-            $med = $_GET['med'];
-            echo  'Resident: ' .$resident;
-            echo  '<br> Medication: ' .$med;
-            ?>
+                $resident = $_GET['res'];
+                $med = $_GET['med'];
+                date_default_timezone_set("America/New_York");
+                $time = date("h:i");
+                $date = date("Y-m-d");
+                
+                echo 'Resident: ' . $resident;
+                echo '<br> Medication: ' . $med;
+                ?>
             </p>
             <p>
                 "PRN Medication" (pro re nata) means any nonprescription or prescription medication that is to be taken as needed as oppose to "routine" medication that are taken on a regular schedule (e.g. every morning , or twice a day).
@@ -77,11 +81,11 @@
                             echo $row['drug_strgth_dose'];
                             echo "</td>";
 
-                            
-                                echo "<td>";
-                                echo $row['reason'];
-                                echo "</td>";
-                            
+
+                            echo "<td>";
+                            echo $row['reason'];
+                            echo "</td>";
+
                             if ($row['response'] == '') {
                                 echo "<td>";
                                 ?>
@@ -147,11 +151,11 @@
                         </br>
                         <label> Date Medication Given:</label>
                         </br>
-                        <input class="input" id="date" required name="date" type="date">
+                        <input class="input" id="date" required name="date" type="date" value="<?php echo $date ?>">
                         </br>
                         <label>Time Medication Given:</label>
                         </br>
-                        <input type="time" required id="time">
+                        <input type="time" required id="time" value="<?php echo $time ?>">
                         </br>
                         <label>Staff Signiture:</label>
                         </br>
@@ -168,9 +172,9 @@
                         <input class="input" required name="reason" id="reason" type="text">
                         </br>
 
-                </form>
-                <button class="button" onclick="savePrnForm();return false;">Save</button>
-            </div>
+                        </form>
+                        <button class="button" onclick="savePrnForm();return false;">Save</button>
+                    </div>
             </div>
         </div>
     </body>
