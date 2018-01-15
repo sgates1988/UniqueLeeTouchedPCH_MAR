@@ -7,10 +7,12 @@ $empfirstname = $_POST['empfirstname'];
 $emplastname = $_POST['emplastname'];
 $newUsername = $_POST['newUsername'];
 $newPassword = $_POST['newPassword'];
+$newEmail = $_POST['newEmail'];
+$empPhone = $_POST['newPhone'];
 $empType = $_POST['empType'];
 
 
-$sql = "INSERT INTO employees (emp_firstname, emp_lastname, emp_username, emp_password, emp_type) VALUES ('$empfirstname', '$emplastname', '$newUsername', '$newPassword', '$empType')";
+$sql = "INSERT INTO employees (emp_firstname, emp_lastname, emp_username, emp_password, emp_type, emp_email, emp_phone) VALUES ('$empfirstname', '$emplastname', '$newUsername', '$newPassword', '$empType', '$newEmail', '$empPhone')";
 
 if (mysqli_query($con, $sql)) {
     $posted = true;

@@ -45,6 +45,36 @@ function getReport(res) {
         xmlhttp.send();
     }
 }
+
+function getDetailedReport(res) {
+    if (res == "All") {
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                document.getElementById("report").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET", "marDetailedReport.php?res=" + res, true);
+        xmlhttp.send();
+    } else {
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                document.getElementById("report").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET", "marDetailedReport.php?res=" + res, true);
+        xmlhttp.send();
+    }
+}
 function Back() {
 
     window.location.href = 'admin.php';
