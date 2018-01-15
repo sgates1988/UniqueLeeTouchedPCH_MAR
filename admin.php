@@ -200,9 +200,15 @@
                     ?>
                 </select>
                 <h3>
-                    Medication Record Details
+                    Medication Administration Report
                 </h3>
                 <button class="button" onclick="getReport(document.getElementById('resReport').value)">
+                    Generate Report
+                </button>
+                <h3>
+                    Medication Record Details Report
+                </h3>
+                <button class="button" onclick="getDetailedReport(document.getElementById('resReport').value)">
                     Generate Report
                 </button>
                 <h3>

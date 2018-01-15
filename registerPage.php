@@ -30,6 +30,12 @@
                 <label> Password: </label>
                 <input type="password" name="newPassword"/>
                 </br>
+                <label> Email: </label>
+                <input type="email" name="newEmail"/>
+                </br>
+                <label> Phone: </label>
+                <input type="tel" name="newPhone" maxlength="10"/>
+                </br>
                 <label> Employee Type: </label>
                 <select name="empType">
                     <option value="admin" >Admin</option>
