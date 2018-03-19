@@ -11,7 +11,7 @@ $drug = $_GET['drug'];
 $reason = $_GET['reason'];
 
 $sql = "INSERT INTO prn_records (res_name, date, time, emp_name, drug_strgth_dose, reason, timestamp)VALUES "
-        . "('$residents', '$date', '$time', '$emp', '$drug', '$reason', NOW())";
+        . "('$residents', '$date', '$time', '$emp', '$drug', '$reason', DATE_FORMAT(NOW(),'%m-%d-%Y %H:%i:%s'))";
 
 if (mysqli_query($con, $sql)) {
     $posted = true;

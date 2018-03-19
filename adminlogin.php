@@ -1,6 +1,7 @@
 <?php
-
-include('config.php');
+session_start();
+define('MyConst', TRUE);
+require('config.php');
 if (isset($_POST['empUsername'])) {
     $myusername = $_POST['empUsername'];
     $mypassword = $_POST['empPassword'];
@@ -17,7 +18,7 @@ if (isset($_POST['empUsername'])) {
     setcookie($cookie_user, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
 
     if (!isset($_COOKIE[$cookie_user])) {
-        header('adminloginPage.php');
+       echo "";
     } else {
         echo "";
     }
@@ -27,9 +28,9 @@ if (isset($_POST['empUsername'])) {
         include('admin.php');
     } else {
         echo "<p style=' position:absolute; padding-left:10px; padding-right:10px; color:black; border-bottom: 6px solid red; background-color: lightgrey; width:200px;' > Incorrect Username or Password. Please try again!</p>";
-        include('adminloginPage.php');
+        include('adminLoginPage.php');
     }
 } else {
-    include('adminloginPage.php');
+    include('adminLoginPage.php');
 }
 ?>

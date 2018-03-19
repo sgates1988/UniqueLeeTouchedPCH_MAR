@@ -57,7 +57,7 @@
                 echo "</tr>";
                 
                 echo "<tr>";
-                echo "<td><strong>Tablet Count:</strong> " . $row2['tabletCount'] . "</td>";
+                echo "<td><strong>Dosage:</strong> " . $row2['tabletCount'] . "</td>";
                 echo "</tr>";
                 
                
@@ -99,3 +99,4 @@
     </div>
 </body>
 </html>
+  

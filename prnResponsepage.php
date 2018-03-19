@@ -69,8 +69,8 @@
                         echo $row['reason'];
                         echo "</td>";
                         date_default_timezone_set("America/New_York");
-                        $time = date("h:i") ;
-                        echo $time;
+                        $time = date("G:i") ;
+                       // echo $time;
                         
                         $date = date("Y-m-d");
                         ?>
@@ -85,7 +85,7 @@
                         <td>
                             <label>Response Time:</label>
                         
-                        <input type="time" id="response_time" value="<?php echo $time ?>"/>
+                        <input type="text" id="response_time" value="<?php echo $time ?>"/>
                         </td>
                         <td>
                         <label>Staff Signiture for Response:</label>
@@ -93,6 +93,7 @@
                             <option name="response_emp" id="response_emp" value="<?php echo $_COOKIE['user'] ?>"><?php echo $_COOKIE['user'] ?></option>
                         </select>
                         </td>
+                        
                         <?php
                     }
                     ?>
@@ -102,6 +103,7 @@
                 </table>
                     <?php
                     ?>
+                <p class="error" id="error" name="error"></p>
                 <button class="button" onclick="savePrnResponseForm();return false;">Save</button>
                 
                 <button class="button" onclick="cancelPrnResponse();return false;">Cancel</button>

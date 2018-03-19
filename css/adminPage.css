@@ -1,3 +1,52 @@
+.search-box,.close-icon,.search-wrapper {
+	position: relative;
+	padding: 10px;
+}
+.search-wrapper {
+	margin: auto;
+}
+.search-box {
+	width: 80%;
+	border: 1px solid #ccc;
+  outline: 0;
+  border-radius: 15px;
+}
+.search-box:focus {
+	box-shadow: 0 0 15px 5px #b0e0ee;
+	border: 2px solid #bebede;
+}
+.close-icon {
+	border:1px solid transparent;
+	background-color: transparent;
+	display: inline-block;
+	vertical-align: left;
+  outline: 0;
+  cursor: pointer;
+}
+.close-icon:after {
+	content: "X";
+	display: block;
+	width: 15px;
+	height: 15px;
+	position: absolute;
+	background-color: #FA9595;
+	z-index:1;
+	right: 35px;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	padding: 2px;
+	border-radius: 50%;
+	text-align: left;
+	color: white;
+	font-weight: normal;
+	font-size: 12px;
+	box-shadow: 0 0 2px #E50F0F;
+	cursor: pointer;
+}
+.search-box:not(:valid) ~ .close-icon {
+	display: none;
+}
 body {
     margin: 0px;
     padding-left: 20px;
@@ -5,6 +54,7 @@ body {
     padding-bottom: 40px;
     padding-top: 40px;
     background-color: #f4dcf4;
+    
 }
 h1 {
     color: #c92c34;
@@ -20,12 +70,14 @@ h3{
 }
 input {
     margin-bottom: 10px;
+    width: 100%;
 }
 br{
     margin-bottom: 10px;
 }
 select {
     margin-bottom: 10px;
+    width: 100%;
 }
 label {
     font-size: 14px;
@@ -72,6 +124,7 @@ label {
     border: none;
     border-radius: 15px;
     box-shadow: 0 9px #999;
+    width: 60px;
 }
 .editbutton {
     margin-left: 5px;
@@ -111,7 +164,7 @@ label {
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
-    width: 50%; /* Could be more or less, depending on screen size */
+    width: 30%; /* Could be more or less, depending on screen size */
     text-align: left;
 }
 

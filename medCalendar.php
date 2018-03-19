@@ -6,15 +6,23 @@ $res = ($_GET['res']);
 $emp = ($_GET['emp']);
 $sql = "SELECT * FROM med_records WHERE time_slot = '$time_slot' AND med_name = '$med' AND res_name = '$res' AND emp_name = '$emp'";
 $sql2 = "SELECT * FROM med_records WHERE time_slot = '$time_slot' AND med_name = '$med' AND res_name = '$res' AND emp_name = '$emp'";
-echo "<strong> Please find below the calendar for:</strong>";
-?>
-<p>Resident: <?php echo $res ?></p>
-<p>Medication: <?php echo $med ?></p>
-<p>Scheduled Time: <?php echo $time_slot ?></p>
-<?php
+
 $Dates = mysqli_query($con, $sql2);
 $row = mysqli_fetch_array($Dates);
 
+
+$bpCheck = $con->query("SELECT BPrequired from res_medications where med_name = '$med' AND BPrequired = 'Required'");
+$BPNum = $bpCheck->num_rows;
+
+if ($BPNum > 0) {
+    ?>
+    <input hidden id="BpRequired" value="Required">
+   <?php 
+} else {
+    ?>
+   <input hidden id="BpRequired" value="Not Required">
+   <?php
+}
 /*
  * Function requested by Ajax
  */
@@ -75,12 +83,28 @@ function getCalender($year = '', $month = '') {
                         } elseif ($dateMonth === "12") {
                             echo "December";
                         }
-                        ?> <?php echo ' ' .($dateYear); ?></h2>
-                    
-                     </ul>
+                        ?> <?php echo ' ' . ($dateYear); ?></h2>
+
+                </ul>
+                <ul>
+                    <li>Resident: <?php
+                        $res = ($_GET['res']);
+                        echo $res
+                        ?></li>
+                    <li>Medication: <?php
+                        $med = ($_GET['med']);
+                        echo $med
+                        ?></li>
+                    <li>Scheduled Time: <?php
+                    $time_slot = ($_GET['time_slot']);
+                    echo $time_slot
+                    ?></li>
+                    <li><span style="background-color: #d2f7ad; width: 100px;">** Record exist **</span><span style="background-color: skyblue; width: 100px;"> ** Current day **</span><span style="background-color: lightpink; width: 100px;"> ** Open **</span></li>
+                </ul>
             </table>
 
             <div id="calender_section_top">
+
                 <ul>
                     <li>Sun</li>
                     <li>Mon</li>
@@ -90,6 +114,7 @@ function getCalender($year = '', $month = '') {
                     <li>Fri</li>
                     <li>Sat</li>
                 </ul>
+
             </div>
             <div id="calender_section_bot">
                 <ul>
@@ -126,15 +151,17 @@ function getCalender($year = '', $month = '') {
                             } else {
                                 echo '<li date="' . $currentDate . '" class="date_cell" >';
                             }
+
                             //Date cell
                             echo '<span>';
                             if ($eventNum > 0) {
-                                echo '<input class="calendar_button" type="button"  id=' . $currentDate . ' name="date[]" value=' . $dayCount . ' ">';
-                                echo '<strong class="existRecord" >';
-                                echo $eventrow['status'];
-                                echo '</strong>';
+                                echo '<input style="background-color: #d2f7ad;" class="calendar_button" type="button"  id=' . $currentDate . ' name="date[]" value=' . $dayCount . ' "/><br>';
                             } else {
-                                echo '<input class="calendar_button" type="button"  id=' . $currentDate . ' name="date[]" value=' . $dayCount . ' onclick="MedRecordEntryModalOpen(this.id)">';
+                                ?>
+                                <input class="calendar_button" type="button"  id='<?php echo $currentDate ?>' name="date[]" value='<?php echo $dayCount ?>' onclick="MedRecordEntryModalOpen(this.id, document.getElementById('BpRequired').value)">
+                            
+                                <?php
+                                
                             }
                             echo '</span>';
 
@@ -142,12 +169,12 @@ function getCalender($year = '', $month = '') {
                             echo '</li>';
                             $dayCount++;
                             ?>
-        <?php } else { ?>
+                        <?php } else { ?>
                             <li><span></span></li>
-            <?php
-        }
-    }
-    ?>
+                            <?php
+                        }
+                    }
+                    ?>
                 </ul></div>
         </div>
     </div>

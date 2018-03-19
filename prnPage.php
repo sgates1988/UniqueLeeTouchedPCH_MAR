@@ -165,13 +165,13 @@
                         </br>
                         <label>Medication-Strength-Dose:</label>
                         </br>
-                        <input class="input" disabled name="drug" id="drug" type="text" value="<?php echo $med ?>">
+                        <input class="input" required disabled name="drug" id="drug" type="text" value="<?php echo $med ?>">
                         </br>
                         <label>Reason:</label>
                         </br>
                         <input class="input" required name="reason" id="reason" type="text">
                         </br>
-
+                        <p id="error" name="error" class="error" ></p>
                         </form>
                         <button class="button" onclick="savePrnForm();return false;">Save</button>
                     </div>

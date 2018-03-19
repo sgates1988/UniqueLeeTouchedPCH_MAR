@@ -1,10 +1,16 @@
-
 body {
     margin: 0px;;
     background-color: #f4dcf4;
     padding-left: 10px;
     
    overflow:auto;
+}
+
+.search-box {
+	width: 80%;
+	border: 1px solid #ccc;
+  outline: 0;
+  border-radius: 15px;
 }
 
 header{
@@ -19,13 +25,14 @@ h1 {
     text-align: center;
 }
 h2 {
-
+ text-align: center;
     font-size: 34px;
 }
 h3{
-    color: #c92c34;
-    text-align: center;
     font-size: 24px;
+}
+h4{
+    color: red;
 }
 
 label {
@@ -75,14 +82,15 @@ label {
 /* Modal Content/Box */
 .modal-content {
     background-color: oldlace;
-    margin: 15% auto; /* 15% from the top and centered */
-    
+    margin: 5% auto; /* 15% from the top and centered */
+    padding-left: 20px;
     border: 1px solid #888;
     width: 50%; /* Could be more or less, depending on screen size */
 }
 
 /* The Close Button */
 .close {
+    padding-right: 10px;
     color: #aaa;
     float: right;
     font-size: 28px;
@@ -99,8 +107,7 @@ label {
     margin-bottom: 5px;
 }
 .select {
-    width: 250px;
-    
+    width: 80%;
     padding: 10px 10px;
     border: none;
     border-radius: 4px;
@@ -109,7 +116,7 @@ label {
 }
 
 input {
-   width: 250px;
+   width: 80%;
     padding: 10px 10px;
     border: none;
     border-radius: 4px;
@@ -151,4 +158,71 @@ input {
     border: 2px solid black;
     border-radius: 12px;
     height: auto;
+}
+.error {
+    background-color: yellow;
+    width: 200px;
+}
+
+
+.topNaviagationLink
+{
+text-align:center;
+position:relative;
+margin-top:30px;
+font-size:16px;
+margin-left:-10px;
+width:121px;
+height: 35px;
+line-height: 35px;
+float:left;
+color:#000000;
+font-family:"Adobe Garamond Pro Bold", Georgia, "Times New Roman", Times, serif;
+}
+
+
+.topNaviagationLink a
+{
+text-decoration:none;
+color:#000000;
+margin-bottom:0px;
+border-bottom:dashed 1px;
+}
+
+.topNaviagationLink a:hover
+{
+text-align:center;
+color:#FFFFFF;
+display: block;
+width:121px;
+height: 35px;
+line-height: 35px;
+background-image:url(tab.png);
+border-bottom:none;
+}
+
+a
+{
+color:#C87002;
+text-decoration:none;
+}
+
+a :hover
+{
+color:#793C06;
+text-decoration: none;
+border-bottom:dotted 2px;
+}
+a :visited
+{
+color:#793C06;
+
+}
+#page
+{
+  display: block; 
+  height:auto;
+  position: relative; 
+  overflow: hidden; 
+  width: 670px;
 }

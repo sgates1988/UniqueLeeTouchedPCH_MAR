@@ -4,12 +4,13 @@
     <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
     <head>
         <meta charset="UTF-8">
-        <title>MAR Report</title>
+        <title>MAR Detailed Report</title>
     </head>
     <style>
         table {
             border: 2px black solid;
             width:100%;
+            margin-bottom: 100px;
         }
 
         th {
@@ -51,8 +52,6 @@
             </strong>
 
         </div>
-             <button class="button" id="back" onclick="Back()"> Back
-        </button>
         <div>
             <table>
                 <tr>

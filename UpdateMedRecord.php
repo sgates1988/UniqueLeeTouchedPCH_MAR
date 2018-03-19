@@ -12,9 +12,10 @@ $status = $_GET['status'];
 $comments = $_GET['comments'];
 $injectionSite = $_GET['injectionSite'];
 $units = $_GET['units'];
+$bloodPressure = $_GET['bloodPressure'];
 
 //$date = $_GET['date'];
-$sql = "INSERT INTO med_records (med_name, res_name, time_slot, emp_name, timestamp, entry_date , status, comments, injectionSite, units) VALUES ('$med_name', '$resident', '$time_slot', '$emp', NOW(), '$date', '$status', '$comments', '$injectionSite', '$units')";
+$sql = "INSERT INTO med_records (med_name, res_name, time_slot, emp_name, timestamp, entry_date , status, comments, injectionSite, units, bp) VALUES ('$med_name', '$resident', '$time_slot', '$emp', DATE_FORMAT(NOW(),'%m-%d-%Y %H:%i:%s'), '$date', '$status', '$comments', '$injectionSite', '$units', '$bloodPressure')";
 
     if (mysqli_query($con, $sql)) {
         $posted = true;

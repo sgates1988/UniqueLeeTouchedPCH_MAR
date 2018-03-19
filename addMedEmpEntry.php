@@ -8,9 +8,9 @@ $resident = $_POST['resident'];
 $time_slot = $_POST['time_slot'];
 $emp = $_POST['empName'];
 $t = time();
-$timestamp = (date("Y-m-d", $t));
+$timestamp = (date("m-d-Y", $t));
 
-$sql = "INSERT INTO med_records ( med_name, res_name, time_slot, emp_name, timestamp )VALUES ('$med_name', '$resident', '$time_slot', '$emp', '$timestamp)";
+$sql = "INSERT INTO med_records ( med_name, res_name, time_slot, emp_name, timestamp )VALUES ('$med_name', '$resident', '$time_slot', '$emp', '$timestamp')";
 
 if (mysqli_query($con, $sql)) {
     $posted = true;

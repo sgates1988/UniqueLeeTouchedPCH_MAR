@@ -57,4 +57,3 @@ $(document).ready(function () {
 function disable() {
         document.getElementById('<?php echo $currentDate  ?> ').style = 'disabled';
     }
-}

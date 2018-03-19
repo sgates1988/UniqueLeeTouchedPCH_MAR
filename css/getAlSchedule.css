@@ -1,0 +1,17 @@
+table {
+    border: 1px #999 solid;
+}
+
+tr {
+    height: 20px;
+    border: 1px #999 solid;
+}
+
+td {
+    border: 1px #999 solid;
+    text-align:center; height:40px;
+}
+
+th {
+    border: 1px #999 solid;
+}

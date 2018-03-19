@@ -34,11 +34,10 @@
                 <input type="email" name="newEmail"/>
                 </br>
                 <label> Phone: </label>
-                <input type="tel" name="newPhone" maxlength="10"/>
+                <input  pattern="[0-9]{3}[0-9]{3}[0-9]{4}" type="tel" name="newPhone" maxlength="10"/>
                 </br>
                 <label> Employee Type: </label>
                 <select name="empType">
-                    <option value="admin" >Admin</option>
                     <option value="regular"> Non-Admin</option>
                 </select>
                 </br>

@@ -47,17 +47,17 @@ body { }
 
 .dropdown{color: #444444;font-size:17px;}
 #calender_section{ width:700px; margin:30px auto 0;}
-#calender_section h2{ background-color:#efefef; color:#444444; font-size:17px; text-align:center; line-height:40px;}
+#calender_section h2{ background-color:lightpink; color:black; font-size:18px; text-align:center; line-height:40px;}
 #calender_section h2 a{ color:#F58220; float:none;}
 #calender_section_top{ width:100%; float:left; margin-top:20px;}
 #calender_section_top ul{padding:0; list-style-type:none;}
 #calender_section_top ul li{ float:left; display:block; width:99px; border-right:1px solid #fff;  text-align:center; font-size:14px; min-height:0; background:none; box-shadow:none; margin:0; padding:0;}
-#calender_section_bot{ width:100%; margin-top:20px; float:left; border-left:1px solid #ccc; border-bottom:1px solid red;}
+#calender_section_bot{ width:100%; margin-top:20px; float:left; border-left:1px solid #999; border-bottom:1px solid #999; margin-bottom: 100px}
 #calender_section_bot ul{ margin:0; padding:0; list-style-type:none;}
-#calender_section_bot ul li{ float:left; width:99px; height:80px; text-align:center; border-top:1px solid red; border-right:1px solid red; min-height:0; background:none; box-shadow:none; margin:0; padding:0; position:relative;}
+#calender_section_bot ul li{ float:left; width:99px; height:80px; text-align:center; border-top:1px solid #999; border-right:1px solid #999; min-height:0; background:none; box-shadow:none; margin:0; padding:0; position:relative;}
 #calender_section_bot ul li span{ margin-top:7px; float:left; margin-left:7px; text-align:center;}
 
-.grey{ background-color:#DDDDDD !important;}
+.grey{ background-color:skyblue !important;}
 .light_sky { background-color:white !important;}
 
 /*========== Hover Popup ===============*/
@@ -65,7 +65,7 @@ body { }
 .existRecord{
     font-size: 12px;
 }
-.date_cell:hover { background: #DDDDDD !important; }
+.date_cell:hover { background: none !important; }
 .date_popup_wrap {
 	position: absolute;
 	width: 143px;
@@ -127,4 +127,9 @@ a:hover {color: #181919;text-decoration: underline;}
 #calender_section_bot ul li{ width:74px;}
 #calender_section_bot{ width:525px;}
 #calender_section_bot ul li{ height:50px;}
+}
+
+.error {
+    background-color: yellow;
+    width: 200px;
 }

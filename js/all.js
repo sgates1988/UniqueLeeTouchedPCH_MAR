@@ -1,5 +1,20 @@
 function displayRes(str) {
-    if (str === "") {
+    if (str === "all") {
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                document.getElementById("resInfo").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET", "getAllSchedule.php?q=" + str, true);
+        xmlhttp.send();
+
+
+    } else if (str === "") {
         document.getElementById("resInfo").innerHTML = "";
         return;
     } else {
@@ -9,7 +24,7 @@ function displayRes(str) {
             xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
         }
         xmlhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
+            if (this.readyState === 4 && this.status === 200) {
                 document.getElementById("resInfo").innerHTML = this.responseText;
             }
         };
@@ -22,7 +37,7 @@ function displayMeds(med, name) {
     if (med === "") {
         document.getElementById("medInfo").innerHTML = "";
         return;
-    } else if (med == "all") {
+    } else if (med === "all") {
         if (window.XMLHttpRequest) {
             xmlhttp = new XMLHttpRequest();
         } else {
@@ -88,6 +103,41 @@ function displayMedTime(time_slot, med, resident, emp_name) {
     }
 }
 
+function displayScheduleMedTime(time_slot, med_name, resident, emp_name) {
+
+    if (time_slot === "") {
+        document.getElementById("resInfo").innerHTML = "Error";
+        return;
+    } else if (time_slot === "PRN") {
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                document.getElementById("resInfo").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET", "prnPage.php?res=" + resident + "&med=" + med_name, true);
+        xmlhttp.send();
+    } else {
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                document.getElementById("resInfo").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET", "getMedTimeInfo.php?time_slot=" + time_slot + "&med=" + med_name + "&res=" + resident + "&emp=" + emp_name, true);
+        xmlhttp.send();
+    }
+}
+
+
 
 function displayAllMedTime(time_slot, love, resident, emp_name) {
 
@@ -127,15 +177,16 @@ function displayAllMedTime(time_slot, love, resident, emp_name) {
 }
 
 
-function addRecord(selectedDate, status, comments, injectionSite , units) {
+function addRecord(selectedDate, status, comments, injectionSite, units, bloodPressure) {
 //Setting the values for employee, time, resident and medication
     var emp = document.getElementById("emp").value;
     var time_slot = document.getElementById("time_slot").value;
     var res = document.getElementById("res").value;
     var med = document.getElementById("med").value;
 
+
     if (status === "") {
-        document.getElementById("error").innerHTML = "*Status is required. Please select a status.";
+        document.getElementById("error").innerHTML = "*Action is required. Please select an Action.";
     } else {
 
         if (window.XMLHttpRequest) {
@@ -148,7 +199,7 @@ function addRecord(selectedDate, status, comments, injectionSite , units) {
                 document.getElementById("medInfo").innerHTML = this.responseText;
             }
         };
-        xmlhttp.open("GET", "UpdateMedRecord.php?time_slot=" + time_slot + "&med=" + med + "&res=" + res + "&emp=" + emp + "&selectedDate=" + selectedDate + "&status=" + status + "&comments=" + comments + "&injectionSite=" + injectionSite + "&units=" + units, true);
+        xmlhttp.open("GET", "UpdateMedRecord.php?time_slot=" + time_slot + "&med=" + med + "&res=" + res + "&emp=" + emp + "&selectedDate=" + selectedDate + "&status=" + status + "&comments=" + comments + "&injectionSite=" + injectionSite + "&units=" + units + "&bloodPressure=" + bloodPressure, true);
         xmlhttp.send();
     }
 }
@@ -183,10 +234,6 @@ function prnResponseModalOpen(id) {
 
 }
 
-function getyy() {
-    alert("Image is loaded");
-}
-
 function prnResponseModalClose() {
     document.getElementById('prnResponseModal').style.display = 'none';
 }
@@ -200,26 +247,30 @@ function savePrnForm() {
     var drug = document.getElementById("drug").value;
     var reason = document.getElementById("reason").value;
 
-
-    if (window.XMLHttpRequest) {
-        xmlhttp = new XMLHttpRequest();
+    if (residents === "" || date === "" || time === "" || emp === "" || drug === "" || reason === "") {
+        document.getElementById("error").innerHTML = "** All fields are required";
     } else {
-        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-    }
-    xmlhttp.onreadystatechange = function () {
-        if (this.readyState === 4 && this.status === 200) {
-            document.getElementById('medication').value = '';
-            document.getElementById("medInfo").innerHTML = this.responseText;
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
         }
-    };
-    xmlhttp.open("POST", "addPrnEntry.php?residents=" + residents
-            + "&date=" + date
-            + "&time=" + time
-            + "&emp=" + emp
-            + "&drug=" + drug
-            + "&reason=" + reason, true);
-    xmlhttp.send();
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                document.getElementById('medication').value = '';
+                document.getElementById("medInfo").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("POST", "addPrnEntry.php?residents=" + residents
+                + "&date=" + date
+                + "&time=" + time
+                + "&emp=" + emp
+                + "&drug=" + drug
+                + "&reason=" + reason, true);
+        xmlhttp.send();
+    }
 }
+
 
 function savePrnResponseForm() {
 
@@ -229,23 +280,27 @@ function savePrnResponseForm() {
     var responseTime = document.getElementById("response_time").value;
     var responseEmp = document.getElementById("response_emp").value;
 
-    if (window.XMLHttpRequest) {
-        xmlhttp = new XMLHttpRequest();
+    if (id === "" || response === "" || responseDate === "" || responseTime === "" || responseEmp === "") {
+        document.getElementById("error").innerHTML = "** All fields are required!";
     } else {
-        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-    }
-    xmlhttp.onreadystatechange = function () {
-        if (this.readyState === 4 && this.status === 200) {
-            document.getElementById('medication').value = '';
-            document.getElementById("medInfo").innerHTML = this.responseText;
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
         }
-    };
-    xmlhttp.open("POST", "addPrnResponse.php?id=" + id
-            + "&response=" + response
-            + "&responseDate=" + responseDate
-            + "&responseTime=" + responseTime
-            + "&responseEmp=" + responseEmp, true);
-    xmlhttp.send();
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                document.getElementById('medication').value = '';
+                document.getElementById("medInfo").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("POST", "addPrnResponse.php?id=" + id
+                + "&response=" + response
+                + "&responseDate=" + responseDate
+                + "&responseTime=" + responseTime
+                + "&responseEmp=" + responseEmp, true);
+        xmlhttp.send();
+    }
 }
 
 function cancelPrnResponse() {
@@ -255,9 +310,7 @@ function cancelPrnResponse() {
 
 }
 
-
-
-function MedRecordEntryModalOpen(selectedDate) {
+function MedRecordEntryModalOpen(selectedDate, BpRequired) {
     document.getElementById('acceptMedRecModal').style.display = '';
     document.getElementById('acceptMedRecModal').style.display = 'block';
     var med = document.getElementById('med').value;
@@ -266,10 +319,13 @@ function MedRecordEntryModalOpen(selectedDate) {
     var time_slot = document.getElementById('time_slot').value;
     document.getElementById('selectedDate').innerHTML = selectedDate;
     document.getElementById('empcontent').innerHTML = "<strong>" + emp + "</strong>" + "<br>";
-    document.getElementById('content').innerHTML = "Please select action for " + res + " " + med + " on " + selectedDate + " for " + " at " + time_slot + ".";
+    document.getElementById('content').innerHTML = "Please select action for " + res + " " + med + " on " + selectedDate + " at " + time_slot + ".";
+    if (BpRequired === "Required") {
+        document.getElementById('bp').style.display = 'block';
+    } else {
+        document.getElementById('bp').style.display = 'none';
+    }
 }
-
-
 
 function acceptMedRecModalClose() {
     document.getElementById('acceptMedRecModal').style.display = 'none';
@@ -293,7 +349,17 @@ function getAlerts() {
 function checkInjection(status) {
     if (status === "Signed-off") {
         document.getElementById('injection').style.display = '';
-    }else{
-    document.getElementById('injection').style.display = 'none';
+    } else {
+        document.getElementById('injection').style.display = 'none';
+    }
 }
+
+function resetMed() {
+    document.getElementById('medication').selectedIndex = 0;
+    document.getElementById('medInfo').innerHTML = '';
+}
+
+function resetRes() {
+    document.getElementById('Residents').selectedIndex = 0;
+    document.getElementById('resInfo').innerHTML = '';
 }

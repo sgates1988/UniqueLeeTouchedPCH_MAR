@@ -28,15 +28,9 @@
                 <input  class=button type="submit" name="submit" value="Login" />
             </form>
         </div>
-        <div class='adminloginbox'>
-            <h3>
-                Admin Tool
-            </h3>
-            <a class="button" href="adminLoginPage.php">Click here to login</a>
             <h3>
                 New Employee Registration
             </h3>
             <a class="button" href="registerPage.php">Click here to register</a>
-        </div>
     </body>
 </html>

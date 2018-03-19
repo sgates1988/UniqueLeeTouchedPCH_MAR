@@ -7,7 +7,6 @@
 <?php
 include('config.php');
 include_once('medCalendar.php');
-$sql = "SELECT * from med_records"
 ?>
 <div id="info" style="display: none">
     <?php
@@ -18,6 +17,7 @@ $sql = "SELECT * from med_records"
     $sql = "SELECT * FROM res_medications WHERE res_name = '" . $res . "'";
     $result = mysqli_query($con, $sql);
     $row = mysqli_fetch_array($result);
+    echo $row['BPrequired'];
     ?>
 </div>
 
@@ -43,11 +43,18 @@ $sql = "SELECT * from med_records"
         <h3>
             Employee Medication Sign Off
         </h3>
+        <?php
+        echo $row['BPrequired'];
+        if ($row['BPrequired'] == "on") {
+            echo "hi";
+        }
+        ?>
         <p id="selectedDate" style='display:none'></p>
         <span id="empcontent"></span>
         <span id="content"></span>
-        <p id="content-options">
-        <p id="error" style="background-color: red; color: white"></p>
+        <p id="content-options"></p>
+
+        <p id="error" class="error"></p>
         <form>
             <strong>*Select action :</strong>
             <select id="status" onchange="checkInjection(this.value)">
@@ -64,6 +71,11 @@ $sql = "SELECT * from med_records"
                 <option type="checkbox" id="other" name="other" value="Other">Other - See Comments</option>
 
             </select> 
+            <br>
+            <div id="bp" style="display: none">
+                <br>
+                <strong>* Blood Pressure: (Ex. 120/90)</strong> <input style="width:150px; height: 25px" id='bloodPressure' placeholder="120/90" value=''>
+            </div>
             </br>
             <span>Comments:</span>
             <input style="width:300px; height: 100px" id="comments" name="comments" value="" placeholder="Enter any relavent information here">
@@ -73,7 +85,7 @@ $sql = "SELECT * from med_records"
                 <p>Note: Complete below fields ONLY if Injection was given</p>
                 <span>Injection Site :</span>
                 <select id="injectionSite" name="injectionSite" >
-                    <option value="N/A">N/A</option>
+                    <option value="" >Not applicable</option>
                     <?php
                     include('config.php');
 
@@ -91,13 +103,13 @@ $sql = "SELECT * from med_records"
                 </select>
                 </br>
                 <span>Units :</span>
-                <input type="text" id="units" name="units" value="N/A">
+                <input type="text" id="units" name="units" value="">
                 <br>
             </div>
 
             </br>
 
-            <button  class="button" type="button" name="submit" onclick="addRecord(document.getElementById('selectedDate').innerHTML, document.getElementById('status').value, document.getElementById('comments').value, document.getElementById('injectionSite').value, document.getElementById('units').value);
+            <button  class="button" type="button" name="submit" onclick="addRecord(document.getElementById('selectedDate').innerHTML, document.getElementById('status').value, document.getElementById('comments').value, document.getElementById('injectionSite').value, document.getElementById('units').value, document.getElementById('bloodPressure').value);
                     return false;">Accept</button>
         </form>
     </div>

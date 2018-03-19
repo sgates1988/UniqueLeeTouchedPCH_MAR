@@ -3,13 +3,12 @@
     <script src="js/all.js" type="text/javascript"></script>
     <head>
         <meta charset="UTF-8">
-        <title>PRN Report</title>
+        <title>Vital Report</title>
     </head>
     <style>
         table {
             border: 2px black solid;
             width:100%;
-            
             margin-bottom: 100px;
         }
 
@@ -30,15 +29,15 @@
         $res = $_GET['res'];
 
         if ($res === "All") {
-            $sql = "SELECT * FROM prn_records";
+            $sql = "SELECT * FROM vitals order by timestamp DESC";
         } else {
-            $sql = "SELECT * FROM prn_records where res_name = '$res' order by date ASC";
+            $sql = "SELECT * FROM vitals where res_name = '$res' order by timestamp DESC";
         }
         $result = mysqli_query($con, $sql);
         ?>
         <div>
             <h1><img src="images/logo_1.png" alt=""/>UniqueLee Touched PCH</h1>
-            <h2>PRN Report</h2>
+            <h2>Vitals Report</h2>
             <strong>
                 Resident Name: <?php echo $res ?>
                 <br>
@@ -48,23 +47,15 @@
                 <br>
                 (770) 405-9998                
             </strong>
-            <p>
-                "PRN Medication" (pro re nata) means any nonprescription or prescription medication that is to be taken as needed as oppose to "routine" medication that are taken on a regular schedule (e.g. every morning , or twice a day). Complete all boxes in the graph below. The first line is an given example. Wait 30-60 minutes before documenting the response.
-            </p>
-        </div>
+ </div>
         <div>
             <table>
                 <tr>
                     <th>Resident Name</th>
                     <th>Date</th>
-                    <th>Time</th>
-                    <th>Staff Signature</th>
-                    <th>Drug - Strength - Dose</th>
-                    <th>Reason Given</th>
-                    <th>Response</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Staff Signature</th>
+                    <th>Blood Pressure</th>
+                    <th>Temperature</th>
+                    <th>Weight</th>
                 </tr>
 
                 <?php
@@ -81,41 +72,21 @@
                             echo "</td>";
 
                             echo "<td>";
-                            echo $row['date'];
+                            echo $row['timestamp'];
                             echo "</td>";
 
                             echo "<td>";
-                            echo $row['time'];
+                            echo $row['bp'];
                             echo "</td>";
 
                             echo "<td>";
-                            echo $row['emp_name'];
+                            echo $row['temp'];
                             echo "</td>";
 
                             echo "<td>";
-                            echo $row['drug_strgth_dose'];
+                            echo $row['weight'];
                             echo "</td>";
 
-                            echo "<td>";
-                            echo $row['reason'];
-                            echo "</td>";
-
-                            echo "<td>";
-                            echo $row['response'];
-                            echo "</td>";
-
-
-                            echo "<td>";
-                            echo $row['response_date'];
-                            echo "</td>";
-
-                            echo "<td>";
-                            echo $row['response_time'];
-                            echo "</td>";
-
-                            echo "<td>";
-                            echo $row['response_emp_name'];
-                            echo "</td>";
 
                             echo "</tr>";
                             $i = $i + 1;

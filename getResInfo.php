@@ -41,10 +41,10 @@
         mysqli_close($con);
         ?>
         <div name="resMeds" id="resMeds" class="section">
-            <span style="background-color: yellow;">*Reorder medications & Supplies - 5 day   			
+            <span style="background-color: yellow;">*Reorder medications & Supplies - 5 days in Advance  			
 </span>
             <h3> Select Medication(s) </h3>
-            <select id="medication" onchange="displayMeds(this.value, document.getElementById('Residents').value)">
+            <select class="search-box" id="medication" onchange="displayMeds(this.value, document.getElementById('Residents').value)">
                 <option name="residentsMeds" value="">Select medication....</option>
                 <option name="meds" value="all">ALL</option>
                 
@@ -63,6 +63,8 @@
                 <?php }
                 ?>
             </select>
+            
+        <button type="reset" onclick="resetMed()"> Reset </button>
         </div>
         <div name="resMedInfoSection">
             <p id="medInfo"></p>
