@@ -199,7 +199,7 @@ function addRecord(selectedDate, status, comments, injectionSite, units, bloodPr
                 document.getElementById("medInfo").innerHTML = this.responseText;
             }
         };
-        xmlhttp.open("GET", "UpdateMedRecord.php?time_slot=" + time_slot + "&med=" + med + "&res=" + res + "&emp=" + emp + "&selectedDate=" + selectedDate + "&status=" + status + "&comments=" + comments + "&injectionSite=" + injectionSite + "&units=" + units + "&bloodPressure=" + bloodPressure, true);
+        xmlhttp.open("GET", "updateMedRecord.php?time_slot=" + time_slot + "&med=" + med + "&res=" + res + "&emp=" + emp + "&selectedDate=" + selectedDate + "&status=" + status + "&comments=" + comments + "&injectionSite=" + injectionSite + "&units=" + units + "&bloodPressure=" + bloodPressure, true);
         xmlhttp.send();
     }
 }
@@ -302,6 +302,10 @@ function savePrnResponseForm() {
         xmlhttp.send();
     }
 }
+function cancelAdmin() {
+        document.getElementById('medModal').style.display = 'none';
+}
+
 
 function cancelPrnResponse() {
 

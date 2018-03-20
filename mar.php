@@ -13,6 +13,7 @@ if (!defined('MyConst')) {
         <script src="js/admin.js" type="text/javascript"></script>
         <script src="js/editResident.js" type="text/javascript"></script>
         <script src="js/editMedication.js" type="text/javascript"></script>
+        <script src="js/reports.js" type="text/javascript"></script>
         <title>MAR</title>
     </head>
 

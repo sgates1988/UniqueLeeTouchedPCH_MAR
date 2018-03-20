@@ -19,4 +19,4 @@
     ?>
     
 </select>  
-<button onclick='editMedication(document.getElementById("medID").value)'>NEXT</button>
+

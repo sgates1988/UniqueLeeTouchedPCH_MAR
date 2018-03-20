@@ -60,3 +60,33 @@ document.getElementById("selectMeds").innerHTML = this.responseText;
         xmlhttp.open("GET", "editMedication.php?med_id=" + med_id, true);
         xmlhttp.send();
         }
+        
+function deactivate(id, resident, medication, bp, rxNum, prescriber, tabCount, route, frequency, addltFreq, sideEffects, diagnosis, time_slot, notes) {
+
+        if (window.XMLHttpRequest) {
+xmlhttp = new XMLHttpRequest();
+} else {
+xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+}
+xmlhttp.onreadystatechange = function () {
+if (this.readyState === 4 && this.status === 200) {
+document.getElementById("selectMeds").innerHTML = this.responseText;
+}
+};
+        xmlhttp.open("GET", "deactivate.php?id=" + id +
+                "&res=" + resident +
+                "&medication=" + medication +
+                "&bp=" + bp +
+                "&rxNum=" + rxNum +
+                "&prescriber=" + prescriber +
+                "&tabCount=" + tabCount +
+                "&route=" + route +
+                "&frequency=" + frequency +
+                "&addltFreq=" + addltFreq +
+                "&sideEffects=" + sideEffects +
+                "&diagnosis=" + diagnosis +
+                "&time_slot=" + time_slot +
+                "&notes=" + notes,
+                true);
+        xmlhttp.send();
+}

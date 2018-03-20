@@ -69,7 +69,7 @@
                         <input required type="text" id="res_diet" name="res_diet" class="search-box" style="height: 100px" placeholder="Enter Residents Diet" value="<?php echo $diet ?>"/>
                     </div>
                     <button class="button" onclick="updateRes(document.getElementById('residentId').value, document.getElementById('residentName').value, document.getElementById('res_allergies').value, document.getElementById('res_diet').value);return false;">Save</button>
-                    <button class="button" onclick="clearForm();return false;">Clear</button>
+                    <button class="button" onclick="cancel();return false;">Cancel</button>
                 </form>
 
             <?php }

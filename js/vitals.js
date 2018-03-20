@@ -3,7 +3,7 @@ function getVitals() {
     document.getElementById("msg").innerHTML = "";
     document.getElementById("mar").style.background = "#555";
     document.getElementById("admin").style.background = "#555";
-    document.getElementById("vitals").style.background = "red";
+    document.getElementById("vitals").style.background = "#c92c34";
     xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
@@ -18,7 +18,7 @@ function getVitals() {
 
 function getMAR() {
     document.getElementById("msg").innerHTML = "";
-    document.getElementById("mar").style.background = "red";
+    document.getElementById("mar").style.background = "#c92c34";
     document.getElementById("admin").style.background = "#555";
     document.getElementById("vitals").style.background = "#555";
 

@@ -9,7 +9,7 @@
         table {
             border: 2px black solid;
             width:100%;
-            
+
             margin-bottom: 100px;
         }
 
@@ -28,104 +28,118 @@
         <?php
         include('config.php');
         $res = $_GET['res'];
+        $fromDate = $_GET['fromDate'];
+        $toDate = $_GET['toDate'];
 
-        if ($res === "All") {
-            $sql = "SELECT * FROM prn_records";
+
+        if ($toDate == "" || $fromDate == "") {
+            if ($res == "All") {
+                $sql = "SELECT * FROM prn_records";
+            } else {
+                $sql = "SELECT * FROM prn_records WHERE res_name = '$res' order by date ASC";
+            }
         } else {
-            $sql = "SELECT * FROM prn_records where res_name = '$res' order by date ASC";
+            if ($res == "All") {
+                $sql = "SELECT * FROM prn_records WHERE date BETWEEN '$fromDate' AND '$toDate'";
+            } else {
+                $sql = "SELECT * FROM prn_records WHERE res_name = '$res' AND date BETWEEN '$fromDate' AND '$toDate'";
+            }
         }
-        $result = mysqli_query($con, $sql);
-        ?>
-        <div>
-            <h1><img src="images/logo_1.png" alt=""/>UniqueLee Touched PCH</h1>
-            <h2>PRN Report</h2>
-            <strong>
-                Resident Name: <?php echo $res ?>
-                <br>
-                416 Azela Dr
-                <br>
-                STOCKBRIDGE, GA 30281-1632
-                <br>
-                (770) 405-9998                
-            </strong>
-            <p>
-                "PRN Medication" (pro re nata) means any nonprescription or prescription medication that is to be taken as needed as oppose to "routine" medication that are taken on a regular schedule (e.g. every morning , or twice a day). Complete all boxes in the graph below. The first line is an given example. Wait 30-60 minutes before documenting the response.
-            </p>
-        </div>
-        <div>
-            <table>
-                <tr>
-                    <th>Resident Name</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Staff Signature</th>
-                    <th>Drug - Strength - Dose</th>
-                    <th>Reason Given</th>
-                    <th>Response</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Staff Signature</th>
-                </tr>
 
-                <?php
-                if ($result == false) {
-                    echo "No results Found";
-                } else {
-                    $count = mysqli_num_rows($result);
-                    while ($row = $result->fetch_assoc()) {
-                        $i = 0;
-                        if ($i <= $count) {
-                            echo "<tr>";
-                            echo "<td>";
-                            echo $row['res_name'];
-                            echo "</td>";
-
-                            echo "<td>";
-                            echo $row['date'];
-                            echo "</td>";
-
-                            echo "<td>";
-                            echo $row['time'];
-                            echo "</td>";
-
-                            echo "<td>";
-                            echo $row['emp_name'];
-                            echo "</td>";
-
-                            echo "<td>";
-                            echo $row['drug_strgth_dose'];
-                            echo "</td>";
-
-                            echo "<td>";
-                            echo $row['reason'];
-                            echo "</td>";
-
-                            echo "<td>";
-                            echo $row['response'];
-                            echo "</td>";
-
-
-                            echo "<td>";
-                            echo $row['response_date'];
-                            echo "</td>";
-
-                            echo "<td>";
-                            echo $row['response_time'];
-                            echo "</td>";
-
-                            echo "<td>";
-                            echo $row['response_emp_name'];
-                            echo "</td>";
-
-                            echo "</tr>";
-                            $i = $i + 1;
-                        }
-                    }
-                    ?>
+            $result = mysqli_query($con, $sql);
+            ?>
+            <div>
+                <h1><img src="images/logo_1.png" alt=""/>UniqueLee Touched PCH</h1>
+                <h2>PRN Report</h2>
+                <strong>
+                    Resident Name: <?php echo $res ?>
+                    <br>
+                    Date Range: <?php echo $fromDate ?> to <?php echo $toDate ?>
+                    <br>
+                    416 Azela Dr
+                    <br>
+                    STOCKBRIDGE, GA 30281-1632
+                    <br>
+                    (770) 405-9998                
+                </strong>
+                <p>
+                    "PRN Medication" (pro re nata) means any nonprescription or prescription medication that is to be taken as needed as oppose to "routine" medication that are taken on a regular schedule (e.g. every morning , or twice a day). Complete all boxes in the graph below. The first line is an given example. Wait 30-60 minutes before documenting the response.
+                </p>
+            </div>
+            <div>
+                <table>
+                    <tr>
+                        <th>Resident Name</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Staff Signature</th>
+                        <th>Drug - Strength - Dose</th>
+                        <th>Reason Given</th>
+                        <th>Response</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Staff Signature</th>
+                    </tr>
 
                     <?php
-                }
-                ?>
+                    if ($result == false) {
+                        echo "No results Found";
+                    } else {
+                        $count = mysqli_num_rows($result);
+                        while ($row = $result->fetch_assoc()) {
+                            $i = 0;
+                            if ($i <= $count) {
+                                echo "<tr>";
+                                echo "<td>";
+                                echo $row['res_name'];
+                                echo "</td>";
+
+                                echo "<td>";
+                                echo $row['date'];
+                                echo "</td>";
+
+                                echo "<td>";
+                                echo $row['time'];
+                                echo "</td>";
+
+                                echo "<td>";
+                                echo $row['emp_name'];
+                                echo "</td>";
+
+                                echo "<td>";
+                                echo $row['drug_strgth_dose'];
+                                echo "</td>";
+
+                                echo "<td>";
+                                echo $row['reason'];
+                                echo "</td>";
+
+                                echo "<td>";
+                                echo $row['response'];
+                                echo "</td>";
+
+
+                                echo "<td>";
+                                echo $row['response_date'];
+                                echo "</td>";
+
+                                echo "<td>";
+                                echo $row['response_time'];
+                                echo "</td>";
+
+                                echo "<td>";
+                                echo $row['response_emp_name'];
+                                echo "</td>";
+
+                                echo "</tr>";
+                                $i = $i + 1;
+                            }
+                        }
+                        ?>
+
+                        <?php
+                    }
+                    ?>
             </table>
         </div>
     </body>

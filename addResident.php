@@ -21,10 +21,26 @@ mysqli_close($con);
 <?php
 
 if ($posted) {
-    echo "<p style='position:relative; padding-left:10px; padding-right:10px; color:black; border-bottom: 6px solid red; background-color: lightgrey; width:200px;' > * A new Resident was added Successfully!</p>";
-    
+   echo "<div  style='text-align:center';>
+<p style=' position:absolute; padding-left:10px; padding-right:10px; background-color: lightgrey; width:auto;' >
+<h2>* Resident has been added Successfully</h2>
+<button role='button' style='background-color: grey; color:white;' onclick='getAdmin();return false'>Return to Admin Tool</button>
+<br>
+<h3>Your Information has been saved as: </h3>
+<br>
+<strong>Resident: </strong>$residentname
+<br>
+<strong>Diet: </strong>$res_diet
+<br>
+<strong>Allergies: </strong>$res_allergies
+</p>
+</div>";
 } else {
-    echo "<p style='position:relative; padding-left:10px; padding-right:10px; color:black; border-bottom: 6px solid red; background-color: lightgrey; width:200px;' > * Request Failed. Please try again!</p>";
-    
+    echo "<div>
+<p style=' position:absolute; padding-left:10px; padding-right:10px; background-color: lightgrey; width:auto;' >
+<h2>! Unable to complete update. Please Try Again and check information</h2>
+<button role='button' style='background-color: grey; margin-left: 35%; color:white;' onclick='getAdmin();return false'>Return to Admin Tool</button>
+</p>
+</div>";
 }
 ?>

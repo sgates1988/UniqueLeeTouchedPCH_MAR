@@ -1,19 +1,70 @@
-<?php ?>
+<?php $res = ($_GET['res']);
+include('config.php');
+$user = $_COOKIE['user'];
+$med = ($_GET['med']); ?>
 <head>
     <title>UniqueLee Touched PCH</title>
     <link href="css/getMedTimeInfo.css" rel="stylesheet" type="text/css"/>
     <script src="js/all.js" type="text/javascript"></script>
 </head>
+
+<div>
+    <h4>Medication Information </h4>
+    <?php
+        $sql2 = "SELECT * FROM res_medications WHERE res_name = '" . $res . "' and med_name = '" . $med . "' GROUP BY med_name Having count(*) > 0 ";
+        $result2 = mysqli_query($con, $sql2);
+
+        echo "<table style='width:300px;'>";
+        $count = mysqli_num_rows($result2);
+        if ($count > 0) {
+            while ($row2 = mysqli_fetch_array($result2)) {
+                echo "<tr>";
+                echo "<td><strong>Route:</strong> " . $row2['med_route'] . "</td>";
+                echo "</tr>";
+                echo "<tr>";
+                echo "<td><strong>Frequency:</strong> " . $row2['med_freq'] . "</td>";
+                echo "</tr>";
+                
+                echo "<tr>";
+                echo "<td><strong>Additional Frequency:</strong> " . $row2['med_freq_addtl'] . "</td>";
+                echo "</tr>";
+                
+                echo "<tr>";
+                echo "<td><strong>Diagnosis:</strong> " . $row2['med_diagnosis'] . "</td>";
+                echo "</tr>";
+                
+                echo "<tr>";
+                echo "<td><strong>Rx Number:</strong> " . $row2['rxNum'] . "</td>";
+                echo "</tr>";
+                
+                echo "<tr>";
+                echo "<td><strong>Prescriber:</strong> " . $row2['prescriber'] . "</td>";
+                echo "</tr>";
+                
+                echo "<tr>";
+                echo "<td><strong>Dosage:</strong> " . $row2['tabletCount'] . "</td>";
+                echo "</tr>";
+                
+               
+                echo "<tr>";
+                echo "<td><strong>Notes:</strong> " . $row2['notes'] . "</td>";
+                echo "</tr>";
+                
+            }
+        } else {
+            echo "No data available";
+        }
+        echo "</table>";
+        mysqli_close($con);
+        ?>
+   
+</div>
 <?php
 include('config.php');
 include_once('medCalendar.php');
 ?>
 <div id="info" style="display: none">
     <?php
-    include('config.php');
-    $user = $_COOKIE['user'];
-    $res = ($_GET['res']);
-    $med = ($_GET['med']);
     $sql = "SELECT * FROM res_medications WHERE res_name = '" . $res . "'";
     $result = mysqli_query($con, $sql);
     $row = mysqli_fetch_array($result);

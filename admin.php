@@ -123,7 +123,7 @@ if (isset($_GET['access'])) {
                                 <!-- Modal content -->
                                 <div class="modal-content">
                                     <span onclick="newResModalClose()" class="close">&times;</span>
-                                    <p class="reportHeader">Add New Resident</p>
+                                    <h1 class="reportHeader">Add New Resident</h1>
                                     <p id="msgRes" style="background-color: yellow"></p>
                                     <form style="padding-left:10px;">
                                         <br>
@@ -165,7 +165,7 @@ if (isset($_GET['access'])) {
 
                             <div class="" style="margin-bottom:10px;margin-right:10px;padding-top:10px; ">
                                 <button id="editMedModalBtn" class="button" onclick="editMedModalOpen()">Edit</button>
-                                     
+
                             </div>
                             <!-- The Modal -->
                             <div id="medModal" class="modal">
@@ -310,6 +310,9 @@ if (isset($_GET['access'])) {
                                         </br>     
                                         <input  class="button" value="Submit" name="Submit" type="submit" ></input>
                                     </form>
+                                    <div>
+                                        <button class="button" style="position:relative" onclick="cancelAdmin()">Cancel</button>
+                                    </div>
                                     </br>
                                 </div>
 
@@ -322,51 +325,49 @@ if (isset($_GET['access'])) {
                     <label class="label" for="tab-six">Reports</label>
                     <div class="tab-content">
                         <div class="">
-                            <h4>Sort By: Resident</h4>
-
-                            <select id="resReport" name="res" style="width: 200px;" class="select">
-                                <option value="All">All</option>
-                                <?php
-                                include 'config.php';
-                                $sql = "Select * from residents";
-                                $result = mysqli_query($con, $sql);
-
-                                while ($row = $result->fetch_assoc()) {
-                                    ?>
-                                    <option value="<?php echo $row['res_name'] ?> "><?php echo $row['res_name'] ?></option>
-                                <?php }
-                                ?>
-                            </select>
-                            <p class="reportHeader">
-                                Medication Administration Report<br><span>( Please wait 10 seconds for Report to generate )</span>
+                            <div>
+                                <h3>Search</h3>
                                 <br>
-                                <button class="button"  style="width: 100px;" onclick="getReport(document.getElementById('resReport').value)">
-                                    Generate Report
-                                </button>
-                            </p>
+                                <span>( Please wait 10 seconds for Report to generate )</span>
+                                <table class="blueTable">
+                                    <tbody>
+                                        <tr>
+                                            <td><label for="residents">Residents: </label></td><td>
+                                                <select id="residents" name="residents" style="width: 200px;" class="select">
+                                                    <option value="All">All</option>
+                                                    <?php
+                                                    include 'config.php';
+                                                    $sql = "Select * from residents";
+                                                    $result = mysqli_query($con, $sql);
 
-                            <p class="reportHeader">
-                                Medication Record Details Report<br><button class="button" style="width: 100px;" onclick="getDetailedReport(document.getElementById('resReport').value)">
-                                    Generate Report
-                                </button>
-                            </p>
-
-                            <p class="reportHeader">
-                                PRN Record Details<br><button class="button" style="width: 100px;" onclick="getPrnReport(document.getElementById('resReport').value)">Generate Report</button>
-                            </p>
-
-                            <p class="reportHeader">
-                                Vital Record Details<br><button class="button" style="width: 100px;" onclick="getVitalReport(document.getElementById('resReport').value)">
-                                    Generate Report
-                                </button>
-                            </p>
-
+                                                    while ($row = $result->fetch_assoc()) {
+                                                        ?>
+                                                        <option value="<?php echo $row['res_name'] ?> "><?php echo $row['res_name'] ?></option>
+                                                    <?php }
+                                                    ?>
+                                                </select></td></tr>
+                                        <tr>
+                                            <td>From Date: </td><td><input id="fromDate" name="fromDate"  type="date" min="2016-12-31"/></td><td>To Date: </td><td><input id="toDate" type="date" max="2025-12-31"/></td></tr>
+                                        <tr>
+                                            <td>Reports: </td><td><select id="reports" name="reports" style="width: 200px;" class="select">
+                                                    <option value="mar">Medication Administration Report</option>
+                                                    <option value="marDetailed">Medication Record Details Report</option>
+                                                    <option value="prn">PRN Record Details</option>
+                                                    <option value="vitals">Vital Record Details</option>
+                                                </select></td></tr>
+                                        <tr><td></tr>
+                                    </tbody>
+                                    </tr>
+                                </table>
+                                <div style="margin-bottom: 40px;">
+                                    <button class="button"  style="width: 100px;" onclick="getReport(document.getElementById('residents').value, document.getElementById('fromDate').value, document.getElementById('toDate').value, document.getElementById('reports').value)">
+                                        Generate Report
+                                    </button>   
+                                </div>
+                            </div>
                         </div></div>
                 </div>
             </div>
-    </div>
-    <div id="report">
-
     </div>
 </body>
 </html>

@@ -1,4 +1,6 @@
-<?php $res = $_GET['res'] ?>
+<?php $res = $_GET['res'];
+        $fromDate = $_GET['fromDate'];
+        $toDate = $_GET['toDate']; ?>
 <html>
     <link href="css/mar.css" rel="stylesheet" type="text/css"/>
     <script src="js/all.js" type="text/javascript"></script>
@@ -45,7 +47,7 @@
         include('config.php');
 
         if ($res == "All" || "") {
-            $sql2 = "SELECT * FROM res_medications order by med_name ASC ";
+            $sql2 = "SELECT * FROM res_medications order by med_name ASC";
         } else {
             $sql2 = "SELECT * FROM res_medications where res_name = '$res' order by med_name ASC ";
         }

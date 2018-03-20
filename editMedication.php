@@ -57,6 +57,7 @@
                     <input id='medication' name='medication' value='<?php echo $row['med_name'] ?>'/>
                     <br>
                     <label>* Blood Pressure :</label>
+                    <br>
                     <select id='bp' class="select" name="BPrequired">
                         <?php if ($row['BPrequired'] == "") { ?>
                             <option value="">Select.....</option> <?php } else { ?>
@@ -132,20 +133,20 @@
                     <label>* Select Scheduled Times:</label>
                     <br>
                     <select  class="select"  id="time_slot" name="time_slot">
-                            <option  value="<?php echo $row['time_slot'] ?>">Current Value: <?php echo $row['time_slot']; ?></option>
-                            <option  id="time_slot" value="PRN">PRN</option>
-                            <?php
-                            include('config.php');
+                        <option  value="<?php echo $row['time_slot'] ?>">Current Value: <?php echo $row['time_slot']; ?></option>
+                        <option  id="time_slot" value="PRN">PRN</option>
+                        <?php
+                        include('config.php');
 
-                            $sqlTime = "SELECT * FROM time_slot";
-                            $resultTime = mysqli_query($con, $sqlTime);
+                        $sqlTime = "SELECT * FROM time_slot";
+                        $resultTime = mysqli_query($con, $sqlTime);
 
-                            while ($rowTime = $resultTime->fetch_assoc()) {
-                                ?>
-                                <option value="<?php echo $rowTime['time_slot_name'] ?> "><?php echo $rowTime['time_slot_name']; ?></option>
-                            <?php }
+                        while ($rowTime = $resultTime->fetch_assoc()) {
                             ?>
-                        </select>
+                            <option value="<?php echo $rowTime['time_slot_name'] ?> "><?php echo $rowTime['time_slot_name']; ?></option>
+                        <?php }
+                        ?>
+                    </select>
                     </br>
                     <label>Additional Notes :</label>
                     <br>
@@ -167,9 +168,26 @@
                                                  document.getElementById("sideEffects").value,
                                                  document.getElementById("diagnosis").value,
                                                  document.getElementById("time_slot").value,
-                                                 document.getElementById("notes").value);return false;'>Update</button>
-                </form>
-
+                                                 document.getElementById("notes").value);
+                                         return false;'>Update</button>
+                    <button class="button" onclick="cancel();return false;">Cancel</button>
+                    <button class="button" onclick='deactivate(
+                                                 document.getElementById("id").value,
+                                                 document.getElementById("resident").value,
+                                                 document.getElementById("medication").value,
+                                                 document.getElementById("bp").value,
+                                                 document.getElementById("rxNum").value,
+                                                 document.getElementById("prescriber").value,
+                                                 document.getElementById("tabCount").value,
+                                                 document.getElementById("route").value,
+                                                 document.getElementById("frequency").value,
+                                                 document.getElementById("addltFreq").value,
+                                                 document.getElementById("sideEffects").value,
+                                                 document.getElementById("diagnosis").value,
+                                                 document.getElementById("time_slot").value,
+                                                 document.getElementById("notes").value);
+                                         return false;'>Deactivate</button>
+                </form>              
             <?php }
             ?>
         </div>

@@ -50,136 +50,6 @@ function medModalClose() {
     document.getElementById('medModal').style.display = 'none';
 }
 
-function getReport(res) {
-    if (res == "All") {
-        if (window.XMLHttpRequest) {
-            xmlhttp = new XMLHttpRequest();
-        } else {
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.onreadystatechange = function () {
-            if (this.readyState === 4 && this.status === 200) {
-                 window.open("marReport.php?res=" + res, true);
-            }
-        };
-        xmlhttp.open("GET", "marReport.php?res=" + res, true);
-        xmlhttp.send();
-    } else {
-        if (window.XMLHttpRequest) {
-            xmlhttp = new XMLHttpRequest();
-        } else {
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.onreadystatechange = function () {
-            if (this.readyState === 4 && this.status === 200) {
-                 window.open("marReport.php?res=" + res, true);
-            }
-        };
-        xmlhttp.open("GET", "marReport.php?res=" + res, true);
-        xmlhttp.send();
-    }
-}
-
-function getDetailedReport(res) {
-    if (res == "All") {
-        if (window.XMLHttpRequest) {
-            xmlhttp = new XMLHttpRequest();
-        } else {
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.onreadystatechange = function () {
-            if (this.readyState === 4 && this.status === 200) {
-                 window.open("marDetailedReport.php?res=" + res, true);
-            }
-        };
-        xmlhttp.open("GET", "marDetailedReport.php?res=" + res, true);
-        xmlhttp.send();
-    } else {
-        if (window.XMLHttpRequest) {
-            xmlhttp = new XMLHttpRequest();
-        } else {
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.onreadystatechange = function () {
-            if (this.readyState === 4 && this.status === 200) {
-               
-                window.open("marDetailedReport.php?res=" + res, true);
-            }
-        };
-
-        xmlhttp.open("GET", "marDetailedReport.php?res=" + res, true);
-        xmlhttp.send();
-    }
-}
-function Back() {
-    location.reload();
-}
-
-function getPrnReport(res) {
-    if (res === "All") {
-        if (window.XMLHttpRequest) {
-            xmlhttp = new XMLHttpRequest();
-        } else {
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.onreadystatechange = function () {
-            if (this.readyState === 4 && this.status === 200) {
-                window.open("prnReport.php?res=" + res, true);
-            }
-        };
-        xmlhttp.open("GET", "prnReport.php?res=" + res, true);
-        xmlhttp.send();
-    } else {
-        if (window.XMLHttpRequest) {
-            xmlhttp = new XMLHttpRequest();
-        } else {
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.onreadystatechange = function () {
-            if (this.readyState === 4 && this.status === 200) {
-                window.open("prnReport.php?res=" + res, true);
-            }
-        };
-        xmlhttp.open("GET", "prnReport.php?res=" + res, true);
-        xmlhttp.send();
-
-    }
-
-}
-
-function getVitalReport(res) {
-    if (res === "All") {
-        if (window.XMLHttpRequest) {
-            xmlhttp = new XMLHttpRequest();
-        } else {
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.onreadystatechange = function () {
-            if (this.readyState === 4 && this.status === 200) {
-                window.open("vitalReport.php?res=" + res, true);
-            }
-        };
-        xmlhttp.open("GET", "vitalReport.php?res=" + res, true);
-        xmlhttp.send();
-    } else {
-        if (window.XMLHttpRequest) {
-            xmlhttp = new XMLHttpRequest();
-        } else {
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.onreadystatechange = function () {
-            if (this.readyState === 4 && this.status === 200) {
-                window.open("vitalReport.php?res=" + res, true);
-            }
-        };
-        xmlhttp.open("GET", "vitalReport.php?res=" + res, true);
-        xmlhttp.send();
-
-    }
-
-}
-
-
 function prnDisable(prn) {
     if (prn === "PRN") {
         var elements = document.getElementById("opts").options;
@@ -220,7 +90,7 @@ function addRes(res, allergies, diet) {
         xmlhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
                 document.getElementById('newResModal').style.display = 'none';
-                document.getElementById("msg").innerHTML = this.responseText;
+                document.getElementById("admin-content").innerHTML = this.responseText;
             }
         };
 
@@ -236,11 +106,27 @@ function clearForm() {
     document.getElementById('res_diet').value = "";
 }
 
+function cancel() {
+     var access = true;
+
+    document.getElementById("msg").innerHTML = "";
+    xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            document.getElementById("fullPage").innerHTML = this.responseText;
+        }
+    };
+    xmlhttp.open("GET", "admin.php?access=" + access, true);
+    xmlhttp.send();
+
+}
+
+
 function getAdmin() {
     var access = true;
 
     document.getElementById("mar").style.background = "#555";
-    document.getElementById("admin").style.background = "red";
+    document.getElementById("admin").style.background = "#c92c34";
     document.getElementById("vitals").style.background = "#555";
     document.getElementById("msg").innerHTML = "";
     xmlhttp = new XMLHttpRequest();

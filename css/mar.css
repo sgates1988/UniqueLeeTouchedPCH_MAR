@@ -84,14 +84,14 @@ label {
     background-color: oldlace;
     margin: 5% auto; /* 15% from the top and centered */
     padding-left: 20px;
-    border: 1px solid #888;
+    border: 1px solid oldlace;
     width: 50%; /* Could be more or less, depending on screen size */
 }
 
 /* The Close Button */
 .close {
     padding-right: 10px;
-    color: #aaa;
+    color: black;
     float: right;
     font-size: 28px;
     font-weight: bold;

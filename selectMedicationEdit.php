@@ -42,6 +42,7 @@
             <div id="selectMed">
                 Select Resident:
                 <select  name="resident" id="resident5" class="select" style="width: 150px;" onchange="getMedsEdit(this.value)">
+                    <option id="" name="" value="">Select....</option>
                     <?php
                     include('config.php');
 

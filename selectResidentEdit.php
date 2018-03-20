@@ -41,6 +41,7 @@
             <div id="selectRes">
                 Select a Resident:
                 <select  name="resident5" id="resident5" class="select" style="width: 150px;" onchange="getInfo(this.value)">
+                    <option id="" name="" value="">Select.....</option>
                     <?php
                     include('config.php');
                     $sql = "SELECT * FROM residents";
