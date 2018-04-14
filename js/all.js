@@ -1,3 +1,19 @@
+function register(fname, lname, uname, pass, email, phone, admin) {
+   
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                document.getElementById("all").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET", "register.php?fname=" + fname + "&lname=" + lname + "&uname=" + uname + "&pass=" + pass + "&email=" + email + "&phone=" + phone + "&admin=" + admin, true);
+        xmlhttp.send();
+    }
+
 function displayRes(str) {
     if (str === "all") {
         if (window.XMLHttpRequest) {
