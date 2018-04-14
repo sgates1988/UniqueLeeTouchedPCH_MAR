@@ -22,36 +22,42 @@ $sqlCheck = "SELECT * from res_medications WHERE med_record_id='$id' ";
 
 $result = mysqli_query($con, $sqlCheck);
 
-while ($row = $result->fetch_assoc()) {
 
+
+while ($row = $result->fetch_assoc()) {
+    $med_id = $row['med_record_id'];
 
     if ($row['time_slot'] != $time_slot) {
         $sqlCompare = "UPDATE res_medications SET status = 'inactive' WHERE med_record_id='$id'";
         $inactive = true;
     } else {
-       $sqlCompare = "UPDATE res_medications SET med_name='$med_name', res_name='$resident', med_route='$route', med_freq='$frequency', med_diagnosis='$diagnosis', time_slot='$time_slot', rxNum='$rxNum', prescriber='$prescriber', tabletCount='$tabCount', med_freq_addtl='$addltFreq', notes='$notes', side_effects='$sideEffects', BPrequired='$BPrequired', timestamp = DATE_FORMAT(NOW(),'%m-%d-%Y %H:%i:%s') WHERE med_record_id='$id'";
-       $inactive = false;
+        $sqlCompare = "UPDATE res_medications SET med_name='$med_name', res_name='$resident', med_route='$route', med_freq='$frequency', med_diagnosis='$diagnosis', time_slot='$time_slot', rxNum='$rxNum', prescriber='$prescriber', tabletCount='$tabCount', med_freq_addtl='$addltFreq', notes='$notes', side_effects='$sideEffects', BPrequired='$BPrequired', timestamp = DATE_FORMAT(NOW(),'%m-%d-%Y %H:%i:%s') WHERE med_record_id='$id'";
+        $sqlCompare2 = "UPDATE med_records SET med_name='$med_name', res_name='$resident' WHERE med_id='$med_id' ";
     }
-
 
     if (mysqli_query($con, $sqlCompare) && $inactive == true) {
         $sql = "INSERT INTO res_medications (med_name, res_name, med_route, med_freq, med_diagnosis, time_slot, rxNum, prescriber, tabletCount, med_freq_addtl, notes, side_effects, BPrequired, timestamp, created_timestamp, status) VALUES ('$med_name', '$resident', '$route', '$frequency', '$diagnosis', '$time_slot', '$rxNum', '$prescriber', '$tabCount', '$addltFreq', '$notes', '$sideEffects', '$BPrequired', 'NULL', DATE_FORMAT(NOW(),'%m-%d-%Y %H:%i:%s'), 'active') ";
     } else {
         $sql = "Select * from residents";
-    }
 }
-    if (mysqli_query($con, $sql)) {
+
+if (mysqli_query($con, $sql)) {
+    $posted = true;
+    if (mysqli_query($con, $sqlCompare2)) {
         $posted = true;
+    }
+    
     } else {
         $posted = false;
     }
-    mysqli_close($con);
-    ?>
 
-    <?php
+mysqli_close($con);
+?>
 
-    if ($posted) {
-        echo "<div>
+<?php
+
+if ($posted) {
+    echo "<div>
 <p style=' position:absolute; padding-left:10px; padding-right:10px; background-color: lightgrey; width:auto;' >
 <h2>* Medication information was updated Successfully</h2>
 <button role='button' style='background-color: grey; margin-left: 35%; color:white;' onclick='getAdmin();return false'>Return to Admin Tool</button>
@@ -85,12 +91,13 @@ span>Side Effects: $sideEffects</span>
 <span>Notes: $notes</span>
 </p>
 </div>";
-    } else {
-        echo "<div>
+} else {
+    echo "<div>
 <p style=' position:absolute; padding-left:10px; padding-right:10px; background-color: lightgrey; width:auto;' >
 <h2>! Unable to complete update. Please Try Again and check information</h2>
 <button role='button' style='background-color: grey; margin-left: 35%; color:white;' onclick='getAdmin();return false'>Return to Admin Tool</button>
 </p>
 </div>";
-    }
-    ?>
+}
+
+}
