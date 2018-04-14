@@ -176,12 +176,12 @@ if (isset($_GET['access'])) {
                                     <p class="reportHeader">Add New Medication Record</p>
                                     <span style="font-size: 14px;"> * Field is required</span>
 
-                                    <form style="padding-left:10px;" name="addMedRecord" method="POST" action="addMedRecord.php" novalidate>
+                                    <form style="padding-left:10px;" name="addMedRecord" method="POST" action="addMedRecord.php">
                                         <br><label>
                                             * Select a resident: 
                                         </label>
                                         <br>
-                                        <select  name="resident" class="select">
+                                        <select  required name="resident" class="select">
                                             <?php
                                             include('config.php');
 
@@ -203,7 +203,7 @@ if (isset($_GET['access'])) {
                                         <input class="search-box" required name="med" type="text">
                                         <br>
                                         <label>* Blood Pressure Required:</label>
-                                        <select class="select" name="BPrequired">
+                                        <select required class="select" name="BPrequired">
                                             <option value="off">No</option>
                                             <option value="on">Yes
                                             </option>
@@ -211,11 +211,11 @@ if (isset($_GET['access'])) {
                                         </br>
                                         <label>RX #:</label>
                                         <br>
-                                        <input class="search-box" required name="rxNum" type="text"/>
+                                        <input class="search-box" name="rxNum" type="text"/>
                                         </br>
                                         <label>Prescriber Name:</label>
                                         <br>
-                                        <input class="search-box" required name="prescriber" type="text"/>
+                                        <input class="search-box" name="prescriber" type="text"/>
                                         </br>
                                         <label>* Dosage:</label>
                                         <br>
@@ -261,15 +261,15 @@ if (isset($_GET['access'])) {
                                         </br>
                                         <label>Additional Frequency Info:</label>
                                         <br>
-                                        <input class="search-box" required name="addltFreq" type="text"/>
+                                        <input class="search-box" name="addltFreq" type="text"/>
                                         </br>
                                         <label>Side Effects:</label>
                                         <br>
                                         <input class="search-box" name="sideEffects" type="text"/>
                                         </br>
-                                        <label>* Diagnosis Name:</label>
+                                        <label>Diagnosis Name:</label>
                                         <br>
-                                        <input class="search-box" required name="diagnosis" type="text"/>
+                                        <input class="search-box" name="diagnosis" type="text"/>
                                         </br>
                                         <label>* Select Scheduled Times:</label>
                                         <br>
@@ -295,17 +295,12 @@ if (isset($_GET['access'])) {
                                             </select>
                                         </p>
                                         <span id="PRN"   style="display: none">
-                                            <select class="select" id="optsPRN" required="false" name="time_slot[]">
 
-                                                <option   id="time_slot" value="">Select</option>
-                                                <option  id="time_slot" value="PRN">PRN</option>
-
-                                            </select>
                                         </span>
                                         </br>
                                         <label>Additional Notes :</label>
                                         <br>
-                                        <input class="search-box" required name="notes" type="textarea" style="height: 100px"/>
+                                        <input class="search-box" name="notes" type="textarea" style="height: 100px"/>
                                         </br>
                                         </br>     
                                         <input  class="button" value="Submit" name="Submit" type="submit" ></input>
@@ -317,6 +312,24 @@ if (isset($_GET['access'])) {
                                 </div>
 
                             </div>
+                            <p id="timeReplace" hidden>
+                                <select  class="select" required="true" id="opts" multiple name="time_slot[]">
+                                    <?php
+                                    include('config.php');
+
+                                    $sql = "SELECT * FROM time_slot";
+                                    $result = mysqli_query($con, $sql);
+
+                                    while ($row = $result->fetch_assoc()) {
+                                        ?>
+
+                                        <option name="time_slot[]" id="time_slot" value="<?php echo $row['time_slot_name'] ?> "><?php echo $row['time_slot_name']; ?></option>
+
+
+                                    <?php }
+                                    ?>
+                                </select>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -347,7 +360,34 @@ if (isset($_GET['access'])) {
                                                     ?>
                                                 </select></td></tr>
                                         <tr>
-                                            <td>From Date: </td><td><input id="fromDate" name="fromDate"  type="date" min="2016-12-31"/></td><td>To Date: </td><td><input id="toDate" type="date" max="2025-12-31"/></td></tr>
+                                            <td>Month: </td><td>
+                                                <select id='month'>
+                                                    <option value=''>--Select Month--</option>
+                                                    <option selected value='01'>Janaury</option>
+                                                    <option value='02'>February</option>
+                                                    <option value='03'>March</option>
+                                                    <option value='04'>April</option>
+                                                    <option value='05'>May</option>
+                                                    <option value='06'>June</option>
+                                                    <option value='07'>July</option>
+                                                    <option value='08'>August</option>
+                                                    <option value='09'>September</option>
+                                                    <option value='10'>October</option>
+                                                    <option value='11'>November</option>
+                                                    <option value='12'>December</option>
+                                                </select> 
+                                            </td>
+                                            <td>Year: </td><td>
+                                                <select id='year'>
+                                                    <option value=''>--Select Year--</option>
+                                                    <option selected value='2017'>2017</option>
+                                                    <option value='2018'>2018</option>
+                                                    <option value='2019'>2019</option>
+                                                    <option value='2020'>2020</option>
+                                                    <option value='2021'>2021</option>
+                                                    
+                                                </select> </td>
+                                        </tr>
                                         <tr>
                                             <td>Reports: </td><td><select id="reports" name="reports" style="width: 200px;" class="select">
                                                     <option value="mar">Medication Administration Report</option>
@@ -360,7 +400,7 @@ if (isset($_GET['access'])) {
                                     </tr>
                                 </table>
                                 <div style="margin-bottom: 40px;">
-                                    <button class="button"  style="width: 100px;" onclick="getReport(document.getElementById('residents').value, document.getElementById('fromDate').value, document.getElementById('toDate').value, document.getElementById('reports').value)">
+                                    <button class="button"  style="width: 100px;" onclick="getReport(document.getElementById('residents').value, document.getElementById('month').value, document.getElementById('year').value, document.getElementById('reports').value)">
                                         Generate Report
                                     </button>   
                                 </div>

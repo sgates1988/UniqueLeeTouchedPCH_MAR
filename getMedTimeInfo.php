@@ -1,7 +1,16 @@
 <?php $res = ($_GET['res']);
 include('config.php');
 $user = $_COOKIE['user'];
-$med = ($_GET['med']); ?>
+$med = ($_GET['med']); 
+
+$sql2 = "SELECT * FROM res_medications WHERE res_name = '" . $res . "' and med_name = '" . $med . "' AND status ='active' GROUP BY med_name Having count(*) > 0 ";
+        $result2 = mysqli_query($con, $sql2);
+         echo "<table style='width:300px;'>";
+        $count = mysqli_num_rows($result2);
+        if ($count > 0) {
+            while ($row2 = mysqli_fetch_array($result2)) {
+                
+                $med_id = $row2['med_record_id']?>
 <head>
     <title>UniqueLee Touched PCH</title>
     <link href="css/getMedTimeInfo.css" rel="stylesheet" type="text/css"/>
@@ -11,13 +20,9 @@ $med = ($_GET['med']); ?>
 <div>
     <h4>Medication Information </h4>
     <?php
-        $sql2 = "SELECT * FROM res_medications WHERE res_name = '" . $res . "' and med_name = '" . $med . "' GROUP BY med_name Having count(*) > 0 ";
-        $result2 = mysqli_query($con, $sql2);
+        
 
-        echo "<table style='width:300px;'>";
-        $count = mysqli_num_rows($result2);
-        if ($count > 0) {
-            while ($row2 = mysqli_fetch_array($result2)) {
+       
                 echo "<tr>";
                 echo "<td><strong>Route:</strong> " . $row2['med_route'] . "</td>";
                 echo "</tr>";
@@ -65,7 +70,7 @@ include_once('medCalendar.php');
 ?>
 <div id="info" style="display: none">
     <?php
-    $sql = "SELECT * FROM res_medications WHERE res_name = '" . $res . "'";
+    $sql = "SELECT * FROM res_medications WHERE res_name = '" . $res . "' AND status ='active'" ;
     $result = mysqli_query($con, $sql);
     $row = mysqli_fetch_array($result);
     echo $row['BPrequired'];
@@ -94,6 +99,7 @@ include_once('medCalendar.php');
         <h3>
             Employee Medication Sign Off
         </h3>
+        <input type=button id="med_id" name="med_id" value="<?php echo $med_id ?>"><?php echo $med_id ?></input>
         <?php
         echo $row['BPrequired'];
         if ($row['BPrequired'] == "on") {
@@ -160,7 +166,7 @@ include_once('medCalendar.php');
 
             </br>
 
-            <button  class="button" type="button" name="submit" onclick="addRecord(document.getElementById('selectedDate').innerHTML, document.getElementById('status').value, document.getElementById('comments').value, document.getElementById('injectionSite').value, document.getElementById('units').value, document.getElementById('bloodPressure').value);
+            <button  class="button" type="button" name="submit" onclick="addRecord(document.getElementById('med_id').value, document.getElementById('selectedDate').innerHTML, document.getElementById('status').value, document.getElementById('comments').value, document.getElementById('injectionSite').value, document.getElementById('units').value, document.getElementById('bloodPressure').value);
                     return false;">Accept</button>
         </form>
     </div>

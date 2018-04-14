@@ -15,10 +15,13 @@ if (isset($_POST['empUsername']) and isset($_POST['empPassword'])) {
     $cookie_user = "user";
     $cookie_value = "$row[0] $row[1]";
     setcookie($cookie_user, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
-     $cookie_user = "admin";
-    $cookie_value = "$row[2]";
-    setcookie($cookie_user, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
-
+    
+    if ($row[2] == "admin"){
+        $_SESSION["admin"] = true;
+    } else {
+        $_SESSION["admin"] = false;
+    }
+    
     if (!isset($_COOKIE[$cookie_user])) {
         echo "";
     } else {
@@ -26,6 +29,7 @@ if (isset($_POST['empUsername']) and isset($_POST['empPassword'])) {
     }
 
     if ($count == 1) {
+        
         $_SESSION['empUsername'] = $myusername;
         echo "<p style=' float:right; position:relative; padding-left:10px; padding-right:10px; color:black; border-bottom: 6px solid red; background-color: lightgrey; width:200px;' > Welcome: $row[0] $row[1]</p>";
         define('accessGranted', TRUE); include('mar.php');

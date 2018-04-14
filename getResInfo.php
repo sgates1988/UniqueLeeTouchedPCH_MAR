@@ -50,7 +50,7 @@
                 
                 <?php
                 include('config.php');
-                $sql = "SELECT * FROM res_medications WHERE res_name = '" . $q . "' GROUP BY med_name Having count(*) > 0  ";
+                $sql = "SELECT * FROM res_medications WHERE res_name = '" . $q . "' AND status = 'active' GROUP BY med_name Having count(*) > 0  ";
                 $result = mysqli_query($con, $sql);
 
                 while ($row = $result->fetch_assoc()) {
