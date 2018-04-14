@@ -156,7 +156,7 @@ if (isset($_GET['access'])) {
                 </div>
                 <div class="tab blue">
                     <input class="input" id="tab-five" type="radio" name="tabs2">
-                    <label class="label" for="tab-five">Add / Edit Medication Records</label>
+                    <label class="label" for="tab-five">Add / Edit / Deactivate Medication Records</label>
                     <div class="tab-content">
                         <div class="">
                             <!-- Trigger/Open The Modal -->
@@ -385,7 +385,7 @@ if (isset($_GET['access'])) {
                                                     <option value='2019'>2019</option>
                                                     <option value='2020'>2020</option>
                                                     <option value='2021'>2021</option>
-                                                    
+
                                                 </select> </td>
                                         </tr>
                                         <tr>
@@ -407,7 +407,73 @@ if (isset($_GET['access'])) {
                             </div>
                         </div></div>
                 </div>
+            <div class="tab blue">
+                <input class="input" id="tab-seven" type="radio" name="tabs2">
+                <label class="label" for="tab-seven">Manage Employees</label>
+                <div class="tab-content">
+                    <div class="">
+                        <!-- Trigger/Open The Modal -->
+                        <button  style="width:300px" id="adminRightsModalBtn" class="button" onclick="adminRightsModalOpen()">Manage Admin Rights</button>
+                        <br>
+
+                        <div class="" style="margin-bottom:10px;margin-right:10px;padding-top:10px; ">
+                            <button style="width:300px" id="removeEmpModalBtn" class="button" onclick="removeEmpModalOpen()">Edit / Remove Employees</button>
+
+                        </div>
+                        <!-- The Modal -->
+                        <div id="adminRightsModal" class="modal">
+
+                            <!-- Modal content -->
+                            <div class="modal-content">
+                                <span onclick="adminRightsModalClose()" class="close">&times;</span>
+                                <p class="reportHeader">Edit Admin Rights</p>
+                                <span style="font-size: 14px;"> * All Fields are required</span>
+
+                                <form style="padding-left:10px;" name="addMedRecord" method="POST" action="addMedRecord.php">
+                                    <br><label>
+                                        * Select a employee: 
+                                    </label>
+                                    <br>
+                                    <select  required name="resident" class="select">
+                                        <?php
+                                        include('config.php');
+
+                                        $sql = "SELECT * FROM employees";
+                                        $result = mysqli_query($con, $sql);
+
+                                        while ($row = $result->fetch_assoc()) {
+                                            $con->close();
+                                            ?>
+
+                                            <option name="residents" value="<?php echo $row['res_name'] ?>"><?php echo $row['res_name']; ?></option>
+
+                                        <?php }
+                                        ?>
+                                    </select>
+                                    </br>
+                                    <label>Admin Right</label>
+                                    <br>
+
+                                    <select class="select" name="adminType">
+                                        <option value="<?php echo $row['emp_type'] ?>" >Current Right: <?php echo $row['emp_type'] ?>"</option>
+                                        <option value="admin">Admin</option>
+                                        <option value="non-admin">Non-Admin</option>
+
+                                        </br>     
+                                        <button class="button" style="position:relative" onclick="updateAdminRight()">Cancel</button>
+                                </form>
+                                <div>
+                                    <button class="button" style="position:relative" onclick="cancelAdmin()">Cancel</button>
+                                </div>
+                                </br>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
+
     </div>
+    
 </body>
 </html>
