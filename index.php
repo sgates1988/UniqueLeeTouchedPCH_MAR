@@ -23,7 +23,7 @@
                 <input autocomplete type="text" name="empUsername"/>
                 </br>
                 <label>Password:</label>
-                <input autocomplete type="password" name="empPassword"/>
+                <input autocomplete type="text" name="empPassword"/>
                 </br>
                 <input  class=button type="submit" name="submit" value="Login" />
             </form>

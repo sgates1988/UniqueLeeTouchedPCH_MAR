@@ -1,3 +1,37 @@
+<?php
+$res = $_GET['res'];
+$monthSearch = $_GET['month'];
+$yearSearch = $_GET['year'];
+$fromDate = $yearSearch . '-' . $monthSearch . '-01';
+$toDate = $yearSearch . '-' . $monthSearch . '-31';
+
+
+if ($monthSearch == "1") {
+    $monthFull = "January";
+} else if ($monthSearch == "2") {
+    $monthFull = "February";
+} else if ($monthSearch == "3") {
+    $monthFull = "March";
+} else if ($monthSearch == "4") {
+    $monthFull = "April";
+} else if ($monthSearch == "5") {
+    $monthFull = "May";
+} else if ($monthSearch == "6") {
+    $monthFull = "June";
+} else if ($monthSearch == "7") {
+    $monthFull = "July";
+} else if ($monthSearch == "8") {
+    $monthFull = "August";
+} else if ($monthSearch == "9") {
+    $monthFull = "September";
+} else if ($monthSearch == "10") {
+    $monthFull = "October";
+} else if ($monthSearch == "11") {
+    $monthFull = "November";
+} else if ($monthSearch == "12") {
+    $monthFull = "December";
+}
+?>
 <html>
     <link href="css/mar.css" rel="stylesheet" type="text/css"/>
     <script src="js/all.js" type="text/javascript"></script>
@@ -27,24 +61,11 @@
     <body>
         <?php
         include('config.php');
-        $res = $_GET['res'];
-        $fromDate = $_GET['fromDate'];
-        $toDate = $_GET['toDate'];
-
-
-        if ($toDate == "" || $fromDate == "") {
             if ($res == "All") {
-                $sql = "SELECT * FROM prn_records";
+                $sql = "SELECT * FROM prn_records WHERE date BETWEEN '" . $fromDate . "' AND '" . $toDate . "' ";
             } else {
-                $sql = "SELECT * FROM prn_records WHERE res_name = '$res' order by date ASC";
+                $sql = "SELECT * FROM prn_records WHERE res_name = '$res' AND date BETWEEN '" . $fromDate . "' AND '" . $toDate . "' order by date ASC";
             }
-        } else {
-            if ($res == "All") {
-                $sql = "SELECT * FROM prn_records WHERE date BETWEEN '$fromDate' AND '$toDate'";
-            } else {
-                $sql = "SELECT * FROM prn_records WHERE res_name = '$res' AND date BETWEEN '$fromDate' AND '$toDate'";
-            }
-        }
 
             $result = mysqli_query($con, $sql);
             ?>

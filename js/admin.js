@@ -52,29 +52,16 @@ function medModalClose() {
 
 function prnDisable(prn) {
     if (prn === "PRN") {
-        var elements = document.getElementById("opts").options;
-
-        for (var i = 0; i < elements.length; i++) {
-            elements[i].selected = false;
-        }
-        document.getElementById('opts').required = false;
-        document.getElementById('time').style.display = 'none';
-        document.getElementById('PRN').style.display = '';
+       document.getElementById('time').innerHTML = "<select class='select' id='optsPRN' required='false' name='time_slot[]'><option id='time_slot' value=''>Select</option><option  id='time_slot' value='PRN'>PRN</option></select>";
 
 
     } else {
-        var elements = document.getElementById("optsPRN").options;
-
-        for (var i = 0; i < elements.length; i++) {
-            elements[i].selected = false;
-            document.getElementById('optsPRN').required = true;
-            document.getElementById('PRN').style.display = 'none';
-            document.getElementById('time').style.display = '';
+        document.getElementById('time').innerHTML = document.getElementById('timeReplace').innerHTML ;
 
 
         }
     }
-}
+
 
 function addRes(res, allergies, diet) {
     if (res === "" || allergies === "" || diet === "") {

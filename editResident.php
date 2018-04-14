@@ -52,6 +52,7 @@
                 $diet = $row['res_diet'];
                 ?>
                 <form style="padding-left:10px;">
+                    <p id="msgRes" style="background-color: yellow"></p>
                     <input id="residentId" name="residentId" class="search-box" hidden value="<?php echo $id ?>"/>
 
                     <label>* Resident: </label>

@@ -29,9 +29,7 @@ if ($result == false) {
 <?php
 
 if ($posted) {
-    echo "<p style=' position:absolute; padding-left:10px; padding-right:10px; color:black; border-bottom: 6px solid red; background-color: lightgrey; width:auto;' > * Alert: You have PRN responses to complete!! Check the following Residents:<br>";
-    echo $names;
-    echo "</p>";
+    echo "<p style=' position:absolute; padding-left:10px; padding-right:10px; color:black; border-bottom: 6px solid red; background-color: lightgrey; width:auto;' > * Alert: You have PRN responses to complete!!</p>";
 } else {
     }
 ?>

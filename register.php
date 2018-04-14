@@ -3,19 +3,23 @@
 include('config.php');
 
 $posted = false;
-$empfirstname = $_POST['empfirstname'];
-$emplastname = $_POST['emplastname'];
-$newUsername = $_POST['newUsername'];
-$newPassword = $_POST['newPassword'];
-$newEmail = $_POST['newEmail'];
-$empPhone = $_POST['newPhone'];
-$empType = $_POST['empType'];
+$empfirstname = $_GET['fname'];
+$emplastname = $_GET['lname'];
+$newUsername = $_GET['uname'];
+$newPassword = hash("md5", $_GET['pass']);
+$newEmail = $_GET['email'];
+$empPhone = $_GET['phone'];
+$empType = $_GET['admin'];
 
+$sql = ("INSERT INTO employees (emp_firstname, emp_lastname, emp_username, emp_password, emp_type, emp_email, emp_phone) VALUES ('$fname', '$lname', '$uname', '$pass', '$admin', '$email', '$phone')");
 
-$sql = "INSERT INTO employees (emp_firstname, emp_lastname, emp_username, emp_password, emp_type, emp_email, emp_phone) VALUES ('$empfirstname', '$emplastname', '$newUsername', '$newPassword', '$empType', '$newEmail', '$empPhone')";
+// Note that we don't store the password, we store the hash of the password. Once this script is done executing, no one involved in the website (except for the original user) will know that the password is
+
 
 if (mysqli_query($con, $sql)) {
     $posted = true;
+ } else { 
+    $posted = false;
 }
 
 if ($posted) {

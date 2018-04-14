@@ -32,25 +32,27 @@ function getMAR() {
     xmlhttp.send();
 
 }
-function submitVitals(res, bp, temp, weight) {
-    if (bp === "" & temp === "" & weight === "" || res === "" & bp === ""  || res === "" & temp === "" || res === "" & weight === "") {
+function submitVitals(res, bp, temp, weight, pulse) {
+    if (bp === "" & temp === "" & weight === "" & pulse === "" || res === "" & bp === ""  || res === "" & temp === "" || res === "" & weight === "" || res === "" & pulse === "") {
         document.getElementById("errormsg").innerHTML = "<p style='background-color: yellow;'>* Resident  and atleast (1) vital required</p>";
     } else {
         xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
-                document.getElementById("msg").innerHTML = this.responseText;
+                document.getElementById("messages").innerHTML = this.responseText;
                 document.getElementById("errormsg").innerHTML = "";
                 var resident = document.getElementById("ResName").value = "";
                 var bp = document.getElementById("bp").value = "";
                 var temp = document.getElementById("temp").value = "";
                 var weight = document.getElementById("weight").value = "";
+                var pulse = document.getElementById("pulse").value = "";
+                document.getElementById("admin-content").innerHTML = this.responseText;
             }
         };
         xmlhttp.open("GET", "addVitals.php?ResName=" + res
                 + "&bp=" + bp
                 + "&temp=" + temp
-                + "&weight=" + weight, true);
+                + "&weight=" + weight + "&pulse=" + pulse, true);
         xmlhttp.send();
 
     }

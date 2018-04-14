@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Edit Medication</title>
+        <title>Edit / Deactivate Medication</title>
         <link href="css/mar.css" rel="stylesheet" type="text/css"/>
         <script src="js/editResident.js" type="text/javascript"></script>
     </head>

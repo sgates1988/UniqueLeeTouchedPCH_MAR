@@ -1,3 +1,4 @@
+<?php include('config.php'); $admin = $_SESSION["admin"]; ?>
 <html>
     <head>
         <title></title>
@@ -32,7 +33,7 @@
 
     </style>
 
-    <body onload="getAlerts();" >
+    <body onload="getAlerts();">
         <p style="float:left"  id="alerts"></p>
     <input class="button"  style="float:right" value="Logout" type="submit" onclick="logout()"/>
     <div class="container">
@@ -49,10 +50,9 @@
                 <button style="background: #c92c34" class="tablink" id="mar" onclick="getMAR(); return false">Medical Records</button>
                 <button class="tablink"  id="vitals" onclick="getVitals(); return false">Vitals</button>
                 <?php
-                include('config.php');
-                $admin = $_COOKIE['admin'];
-
-                if ($admin == "admin") {
+                
+                
+                if ($admin == true) {
                     ?>
                     <button class="tablink"  id="admin" onclick="getAdmin();return false">Admin</button>
                     <?php

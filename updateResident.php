@@ -22,18 +22,18 @@ mysqli_close($con);
 <?php
 
 if ($posted) {
-    echo "<div>
+    echo "<div style='text-align:center';>
 <p style=' position:absolute; padding-left:10px; padding-right:10px; background-color: lightgrey; width:auto;' >
 <h2>* Resident information was updated Successfully</h2>
-<button role='button' style='background-color: grey; margin-left: 35%; color:white;' onclick='getAdmin();return false'>Return to Admin Tool</button>
+<button role='button' style='background-color: grey; color:white;' onclick='getAdmin();return false'>Return to Admin Tool</button>
 <br>
 <h3>Your Information has been saved as: </h3>
 <br>
-<span>Resident: $resident</span>
+<strong>Resident: </strong> $resident
 <br>
-<span>Diet: $diet</span>
+<strong>Diet: </strong>$diet
 <br>
-<span>Allergies: $allergies</span>
+<strong>Allergies: </strong>$allergies
 </p>
 </div>";
 } else {

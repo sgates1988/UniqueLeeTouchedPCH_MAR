@@ -3,10 +3,10 @@ session_start();
 if (isset($_GET['access'])) {
     $accessGranted = $_GET['access'];
     if ($accessGranted !== "true") {
-    die('Direct access not permitted');
-}
+        die('Direct access not permitted');
+    }
 } else {
- die('Direct access not permitted');  
+    die('Direct access not permitted');
 }
 ?>
 <html>  
@@ -17,8 +17,9 @@ if (isset($_GET['access'])) {
     <div>
         <h2>Vitals</h2>
     </div>
-    <div class="section">
-        <h3 style="text-align: left; color: black">Resident Information</h3>
+    <div id="messages" >
+        <div class="section" >
+            <h3 style="text-align: left; color: black">Resident Information</h3>
             <label>* Resident: </label>
             <br>
             <select id="ResName" name="ResName" style="margin-bottom:20px; height: 40px;" class="select">
@@ -50,9 +51,14 @@ if (isset($_GET['access'])) {
             <br>
             <input type="text" id="weight" class="search-box" name="weight"/>  
             <br>
+            <label>* Pulse:</label>
+            <br>
+            <input type="text" id="pulse" class="search-box" name="pulse"/>  
+            <br>
             <p id="errormsg"></p>
-            <button onclick="submitVitals(document.getElementById('ResName').value, document.getElementById('bp').value, document.getElementById('temp').value, document.getElementById('weight').value);return false;">Submit</button>
-        
+            <button onclick="submitVitals(document.getElementById('ResName').value, document.getElementById('bp').value, document.getElementById('temp').value, document.getElementById('weight').value, document.getElementById('pulse').value);return false;">Submit</button>
+
+        </div>
     </div>
 </body>
 </html>

@@ -1,3 +1,19 @@
+function register(fname, lname, uname, pass, email, phone, admin) {
+   
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                document.getElementById("all").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET", "register.php?fname=" + fname + "&lname=" + lname + "&uname=" + uname + "&pass=" + pass + "&email=" + email + "&phone=" + phone + "&admin=" + admin, true);
+        xmlhttp.send();
+    }
+
 function displayRes(str) {
     if (str === "all") {
         if (window.XMLHttpRequest) {
@@ -177,7 +193,7 @@ function displayAllMedTime(time_slot, love, resident, emp_name) {
 }
 
 
-function addRecord(selectedDate, status, comments, injectionSite, units, bloodPressure) {
+function addRecord(med_id, selectedDate, status, comments, injectionSite, units, bloodPressure) {
 //Setting the values for employee, time, resident and medication
     var emp = document.getElementById("emp").value;
     var time_slot = document.getElementById("time_slot").value;
@@ -199,7 +215,7 @@ function addRecord(selectedDate, status, comments, injectionSite, units, bloodPr
                 document.getElementById("medInfo").innerHTML = this.responseText;
             }
         };
-        xmlhttp.open("GET", "updateMedRecord.php?time_slot=" + time_slot + "&med=" + med + "&res=" + res + "&emp=" + emp + "&selectedDate=" + selectedDate + "&status=" + status + "&comments=" + comments + "&injectionSite=" + injectionSite + "&units=" + units + "&bloodPressure=" + bloodPressure, true);
+        xmlhttp.open("GET", "updateMedRecord.php?time_slot=" + time_slot + "&med_id=" + med_id + "&med=" + med + "&res=" + res + "&emp=" + emp + "&selectedDate=" + selectedDate + "&status=" + status + "&comments=" + comments + "&injectionSite=" + injectionSite + "&units=" + units + "&bloodPressure=" + bloodPressure, true);
         xmlhttp.send();
     }
 }

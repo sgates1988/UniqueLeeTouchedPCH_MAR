@@ -1,3 +1,37 @@
+<?php
+$res = $_GET['res'];
+$monthSearch = $_GET['month'];
+$yearSearch = $_GET['year'];
+$fromDate = $yearSearch . '-' . $monthSearch . '-01';
+$toDate = $yearSearch . '-' . $monthSearch . '-31';
+
+
+if ($monthSearch == "1") {
+    $monthFull = "January";
+} else if ($monthSearch == "2") {
+    $monthFull = "February";
+} else if ($monthSearch == "3") {
+    $monthFull = "March";
+} else if ($monthSearch == "4") {
+    $monthFull = "April";
+} else if ($monthSearch == "5") {
+    $monthFull = "May";
+} else if ($monthSearch == "6") {
+    $monthFull = "June";
+} else if ($monthSearch == "7") {
+    $monthFull = "July";
+} else if ($monthSearch == "8") {
+    $monthFull = "August";
+} else if ($monthSearch == "9") {
+    $monthFull = "September";
+} else if ($monthSearch == "10") {
+    $monthFull = "October";
+} else if ($monthSearch == "11") {
+    $monthFull = "November";
+} else if ($monthSearch == "12") {
+    $monthFull = "December";
+}
+?>
 <html>
     <link href="css/mar.css" rel="stylesheet" type="text/css"/>
     <script src="js/all.js" type="text/javascript"></script>
@@ -25,18 +59,6 @@
         }
     </style>
     <body>
-        <?php
-        include('config.php');
-        $res = $_GET['res'];
-
-        if ($res == "All" || "") {
-            $sql = "SELECT * FROM med_records order by entry_date ASC";
-        } else {
-            $sql = "SELECT * FROM med_records where res_name = '$res' order by entry_date ASC";
-        }
-
-        $result = mysqli_query($con, $sql);
-        ?>
         <div>
             <h1> <img src="images/logo_1.png" alt=""/>UniqueLee Touched PCH</h1>
             <h2>Medical Administration Report</h2>
@@ -68,12 +90,10 @@
                 </tr>
                 <?php
                 include('config.php');
-                $res = $_GET['res'];
-
                 if ($res == "All" || "") {
-                    $sql = "SELECT * FROM med_records order by entry_date ASC";
+                    $sql = "SELECT * FROM med_records WHERE entry_date BETWEEN '" . $fromDate . "' AND '" . $toDate . "' order by entry_date ASC";
                 } else {
-                    $sql = "SELECT * FROM med_records where res_name = '$res' order by entry_date ASC";
+                    $sql = "SELECT * FROM med_records where res_name = '$res' AND  entry_date BETWEEN '" . $fromDate . "' AND '" . $toDate . "'order by entry_date ASC";
                 }
 
                 $result = mysqli_query($con, $sql);
@@ -135,6 +155,6 @@
                 }
                 ?>
             </table>
-                </body>
+    </body>
 </html>
 

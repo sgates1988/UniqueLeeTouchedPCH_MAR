@@ -18,6 +18,7 @@
             <input type="button" id="emp_name" value="<?php echo $_COOKIE['user'] ?>"></input>
         </div>
 
+        <div style="display: none"> 
         <h4>Medication Information </h4>
         <?php
         include('config.php');
@@ -26,7 +27,7 @@
         
         $res = ($_GET['res']);
         include('config.php');
-        $sql2 = "SELECT * FROM res_medications WHERE res_name = '" . $res . "' and med_name = '" . $med . "' GROUP BY med_name Having count(*) > 0 ";
+        $sql2 = "SELECT * FROM res_medications WHERE res_name = '" . $res . "' and med_name = '" . $med . "' AND status ='active' GROUP BY med_name Having count(*) > 0 ";
         $result2 = mysqli_query($con, $sql2);
 
         echo "<table style='width:300px;'>";
@@ -72,13 +73,13 @@
         echo "</table>";
         mysqli_close($con);
         ?>
-
+</div>
         <div name="resMedsTimes" id="resMedsTimes" class="section">
             <h3> Scheduled Medication Times</h3>      
             <?php
             include('config.php');
             $user = $_COOKIE['user'];
-            $sql3 = "SELECT * FROM res_medications WHERE res_name = '" . $res . "' AND med_name = '" . $med . "'";
+            $sql3 = "SELECT * FROM res_medications WHERE res_name = '" . $res . "' AND med_name = '" . $med . "' AND status ='active' ";
             $result3 = mysqli_query($con, $sql3);
             ?>
 

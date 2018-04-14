@@ -32,7 +32,7 @@
         /* @var $_GET type */
 
         include('config.php');
-        $sql = "SELECT * FROM res_medications WHERE res_name = '" . $res . "'  ORDER BY time_slot LIKE '%AM%' DESC, SUBSTR(time_slot, 1, 2)";
+        $sql = "SELECT * FROM res_medications WHERE res_name = '" . $res . "' AND status ='active' ORDER BY time_slot LIKE '%AM%' DESC, SUBSTR(time_slot, 1, 2)";
         $result = mysqli_query($con, $sql);
 
 
